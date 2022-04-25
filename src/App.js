@@ -8,6 +8,7 @@ import firebaseApp from "./firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { connect } from "react-redux";
 import { CargandoUsuario } from "./actions/authActions";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UsuarioCargado } from "./actions/authActions";
 
 const auth = getAuth(firebaseApp);
@@ -28,10 +29,12 @@ function App({ cargando, dispatch }) {
         ""
       ) : (
         <div>
-          <Header user={user} auth={auth} />
-          <div className="d-flex justify-content-center">
-            {user ? <HomePage /> : <LoginPage />}
-          </div>
+          <BrowserRouter>
+            <Header user={user} auth={auth} />
+            <div className="d-flex justify-content-center">
+              {user ? <HomePage /> : <LoginPage />}
+            </div>
+          </BrowserRouter>
         </div>
       )}
     </div>

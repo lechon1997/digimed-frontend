@@ -5,13 +5,13 @@ export const LOGOUT = "LOGOUT";
 export const CARGANDO_USUARIO = "CARGANDO_USUARIO";
 
 export function CargandoUsuario() {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch({ type: CARGANDO_USUARIO, payload: true });
   };
 }
 
 export function UsuarioCargado() {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch({ type: CARGANDO_USUARIO, payload: false });
   };
 }

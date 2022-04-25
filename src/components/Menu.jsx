@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ListaDeFuncionesPage from "../page/ListaDeFuncionesPage";
-import ListaDePersonalPage from "../page/ListaDePersonalPage";
-import NuevoPacientePage from "../page/NuevoPacientePage";
 import CardOption from "./CardOption";
 import TituloCardOption from "./TituloCardOption";
 import ImagenCardOption from "./ImagenCardOption";

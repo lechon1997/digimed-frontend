@@ -1,23 +1,25 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const Header = ({ user, auth }) => {
   return (
     <header className="bg-primary d-flex justify-content-between align-items-center header pe-2">
       <div className="fondo-logo">
-        <a class="navbar-brand " href="/">
+        <Link className="navbar-brand" to="/">
           <img className="imagen-xd" src="./digimed.png" />
-        </a>
+        </Link>
       </div>
       <div>
         {user && (
-          <button
-            onClick={() => {
-              auth.signOut();
-            }}
-            className="cerrar-sesion"
-          >
-            Cerrar sesión
-          </button>
+          <Link to="/">
+            <button
+              onClick={() => {
+                auth.signOut();
+              }}
+              className="cerrar-sesion"
+            >
+              Cerrar sesión
+            </button>
+          </Link>
         )}
       </div>
     </header>

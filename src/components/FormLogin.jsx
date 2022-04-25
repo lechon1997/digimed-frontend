@@ -1,7 +1,6 @@
 import React from "react";
 import firebaseApp from "../firebase/config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc, getFirestore } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -27,7 +26,7 @@ const FormLogin = () => {
     }
 
     try {
-      const res = signInWithEmailAndPassword(auth, email, password);
+      signInWithEmailAndPassword(auth, email, password);
     } catch (e) {
       window.alert("usuario incorrecto");
     }
