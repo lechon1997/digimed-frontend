@@ -1,0 +1,230 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+p {
+  font-size: 11px;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 12px !important;
+  margin: 0px !important;
+}
+
+.login {
+  padding: 50px;
+  margin-top: 50px;
+  width: 420px;
+  height: 300px;
+  border-radius: 12px;
+  background-color: white;
+}
+
+.header {
+  width: 100%;
+  height: 8vh;
+}
+
+.fondo-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 125px;
+  background-color: white;
+  border-radius: 30px;
+  margin: 8px 0px 8px 8px;
+}
+.fondo-logo a {
+  margin: 0px;
+}
+
+.imagen-xd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+
+.cerrar-sesion {
+  width: 100%;
+  border: none;
+  background-color: white;
+  border-radius: 16px;
+  color: black;
+  padding: 6px;
+}
+
+.cerrar-sesion:hover {
+  color: #0d6efd;
+}
+
+.contenedor-login {
+  width: 100%;
+  height: 92vh;
+  display: flex;
+  justify-content: center;
+  background-color: #ebebeb;
+  background-image: url("../public/fondo-login1.png");
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+}
+
+.input-lindo {
+  width: 90%;
+  border: 0px;
+  border-bottom: 1px solid #673ab7;
+  color: #673ab7;
+  font-size: 22px;
+  font-weight: normal;
+  opacity: 1;
+  font-family: sans-serif, Arial;
+}
+
+.input-lindo::placeholder {
+  color: #673ab7;
+  font-size: 18px;
+}
+.input-lindo:focus {
+  outline: none;
+  border-bottom: 1px solid #673ab7;
+  transition: border-bottom 1s;
+}
+
+.btn-ingresar {
+  border: none;
+  width: 80%;
+  height: 40px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #f4f4f4;
+  background-color: #ed2553;
+}
+
+.btn-ingresar:hover {
+  background-color: #e11342;
+}
+
+.btn-ingresar:focus {
+  outline: none;
+}
+
+.input-lindo:active {
+  outline: none;
+}
+
+.btn-ingresar:active {
+  outline: none;
+}
+
+.menu-home {
+  height: 80vh;
+}
+.list-cards-option {
+  justify-content: start;
+}
+
+.card-option {
+  width: 150px;
+  height: 200px;
+  margin: 12px;
+  border-radius: 12px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card-option:hover {
+  cursor: pointer;
+}
+
+.titulo-h3-card-option {
+  color: white;
+}
+
+.card-option-contenedor-titulo {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  padding: 6px 6px 6px 6px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+@media only screen and (max-width: 720px) {
+  .fondo-logo {
+    width: 100px;
+    background-color: white;
+    padding: 2px 4px;
+    border-radius: 30px;
+    transition: width 0.5s;
+  }
+  .imagen-xd {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: auto;
+    transition: width 0.5s;
+  }
+
+  .cerrar-sesion {
+    border: none;
+    background-color: white;
+    border-radius: 16px;
+    color: black;
+    padding: 6px;
+    width: 100%;
+    font-size: 12px;
+    transition: font-size 0.5s;
+  }
+
+  .header {
+    width: 100%;
+    height: 6vh;
+  }
+
+  .contenedor-login {
+    width: 100%;
+    height: 94vh;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    background-image: url("../public/fondo-login2.png");
+    background-repeat: no-repeat, repeat;
+    background-position: bottom;
+    background-size: contain;
+  }
+
+  .login {
+    padding: 50px;
+    margin-top: 50px;
+    width: 420px;
+    height: 300px;
+    border-radius: 12px;
+    background-color: white;
+  }
+
+  .list-cards-option {
+    justify-content: center;
+  }
+}
