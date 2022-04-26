@@ -87,7 +87,7 @@ const ModalNuevoMiembro = ({
     <Modal className="mt-3" isOpen={isOpen}>
       <ModalHeader>
         <div>
-          <h3>Ingresar nuevo cliente</h3>
+          <h3>Ingresar nuevo enfermero</h3>
         </div>
       </ModalHeader>
 
