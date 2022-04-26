@@ -1,6 +1,6 @@
 import { async } from "@firebase/util";
 
-const URL_BASE = "http://localhost:8080/api";
+const URL_BASE = "https://app-digimed.herokuapp.com/api";
 
 export const LOADING = "LOADING";
 export const LOADED_SUCCESS = "LOADED_SUCCESS";

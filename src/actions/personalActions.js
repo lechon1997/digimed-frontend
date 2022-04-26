@@ -7,7 +7,7 @@ export const NUEVO_ENFERMERO = "NUEVO_ENFERMERO";
 export const VALID_FORM = "VALID_FORM";
 export const ACTUALIZAR_ENFERMERO = "ACTUALIZAR_ENFERMERO";
 
-const URL_BASE = "http://localhost:8080/api";
+const URL_BASE = "https://app-digimed.herokuapp.com/api";
 
 export function CargarPersonal() {
   return async (dispatch) => {

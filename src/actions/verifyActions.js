@@ -1,4 +1,4 @@
-const URL_BASE = "http://localhost:8080/api";
+const URL_BASE = "https://app-digimed.herokuapp.com/api";
 
 export const VERIFICAR_EXISTE = "VERIFICAR_EXISTE";
 export const VERIFICAR_EXISTE_SUCCESS = "VERIFICAR_EXISTE_SUCCESS";
