@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import firebaseApp from "../firebase/config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Alert } from "reactstrap";
+import { async } from "@firebase/util";
 
 const auth = getAuth(firebaseApp);
 
 const FormLogin = () => {
+  const [invalidUser, setInvalidUser] = useState(false);
+  const [invalidPass, setInvalidPass] = useState(false);
+
   const [user] = useAuthState(auth);
 
   if (user) {
@@ -15,25 +20,28 @@ const FormLogin = () => {
     console.log("no logeado");
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     if (password.length < 6) {
-      window.alert("la contraseña debe tener más de 6 caracteres");
+      setInvalidUser(false);
+      setInvalidPass(true);
       return false;
+    } else {
+      setInvalidPass(false);
     }
 
     try {
-      signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (e) {
-      window.alert("usuario incorrecto");
+      setInvalidUser(true);
     }
   };
 
   return (
-    <div className="login shadow ">
+    <div className="login shadow">
       <form
         onSubmit={submitHandler}
         className="d-flex flex-column align-items-center"
@@ -54,9 +62,15 @@ const FormLogin = () => {
           placeholder="Contraseña"
           id="exampleInputPassword1"
         />
-        <button type="submit" className="btn-ingresar">
+        <button type="submit" className="btn-ingresar mb-2">
           Ingresar
         </button>
+        <Alert isOpen={invalidUser} color="danger">
+          El Usuario ingresado no es válido
+        </Alert>
+        <Alert isOpen={invalidPass} color="danger">
+          La contraseña debe tener más de 6 caracteres
+        </Alert>
       </form>
     </div>
   );

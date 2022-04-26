@@ -10,6 +10,8 @@ import ImagenCardOption from "./ImagenCardOption";
 import img1 from "../static/imagenes-cards/saludable.png";
 import img2 from "../static/imagenes-cards/doctor.png";
 import img3 from "../static/imagenes-cards/lista-de-tareas.png";
+import img4 from "../static/imagenes-cards/delegar.png";
+
 const Menu = () => {
   return (
     <div className="container d-flex flex-wrap list-cards-option">
@@ -29,6 +31,12 @@ const Menu = () => {
         <CardOption>
           <TituloCardOption titulo={"Lista de funciones"} />
           <ImagenCardOption img={img3} />
+        </CardOption>
+      </Link>
+      <Link to="/delegar-tareas">
+        <CardOption>
+          <TituloCardOption titulo={"Delegar tareas"} />
+          <ImagenCardOption img={img4} />
         </CardOption>
       </Link>
     </div>

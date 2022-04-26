@@ -218,6 +218,34 @@ h6 {
   margin: 0 auto;
 }
 
+.contenedor-delegar-tareas {
+  width: 100%;
+  height: 100%;
+}
+
+.form-delegar-tarea {
+  width: 40%;
+  min-width: 500px;
+  height: 100%;
+  margin-top: 20px;
+  padding-top: 12px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.header-form-delegar-tarea {
+  width: 100%;
+  height: 40px;
+}
+
+.item-header-form-delegar {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 @media only screen and (max-width: 720px) {
   .fondo-logo {
     width: 100px;
@@ -288,5 +316,27 @@ h6 {
     margin: 8px;
     border-radius: 12px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .form-delegar-tarea {
+    margin-top: 0px;
+    min-width: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .header-form-delegar-tarea {
+    width: 100%;
+    height: 40px;
+    background-color: #673ab7;
+  }
+
+  .item-header-form-delegar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
   }
 }
