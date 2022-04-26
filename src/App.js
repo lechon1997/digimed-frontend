@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import React, { useState, useEffect } from "react";
 import LoginPage from "./page/LoginPage";
 import Header from "./components/Header";
