@@ -49,7 +49,7 @@ const SintomasPage = ({ dispatch }) => {
         </div>
         <div className="d-flex justify-content-end w-100">
           <button
-            className="btn btn-primary"
+            className="btn-ingresar2"
             type="submit"
             id="btn-ingresar-sintomas"
           >

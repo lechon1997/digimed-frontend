@@ -59,7 +59,6 @@ export function agregarSintomas(data) {
       );
       const res = await response.json();
       console.log("coso actualizado:", res);
-      //dispatch(success({ redirect: `/paciente/sintomas/${data.id}` }));
     } catch (error) {
       dispatch(failure());
     }
