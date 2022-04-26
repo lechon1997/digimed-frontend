@@ -143,7 +143,7 @@ h6 {
   height: 80vh;
 }
 .list-cards-option {
-  justify-content: start;
+  justify-content: center;
 }
 
 .card-option {
@@ -270,5 +270,13 @@ h6 {
   .lista-de-personal-page-contenedor {
     width: 95%;
     margin: 0 auto;
+  }
+
+  .card-option {
+    width: 42vw;
+    height: 200px;
+    margin: 8px;
+    border-radius: 12px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 }
