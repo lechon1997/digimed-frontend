@@ -123,6 +123,7 @@ h6 {
   background-color: #ed2553;
 }
 
+<<<<<<< HEAD
 
 .btn-ingresar2 {
   border: none;
@@ -134,6 +135,18 @@ h6 {
   margin-right: 10px;
   background-color: #ed2553;
 }
+=======
+.btn-cancelar {
+  border: none;
+  width: 80%;
+  height: 40px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #110f0f;
+  background-color: #f5b34f;
+}
+
+>>>>>>> d5be7c939a890b1e22bb490150f979c9598beebd
 .btn-ingresar:hover {
   background-color: #e11342;
 }
@@ -154,7 +167,7 @@ h6 {
   height: 80vh;
 }
 .list-cards-option {
-  justify-content: start;
+  justify-content: center;
 }
 
 .card-option {
@@ -281,5 +294,13 @@ h6 {
   .lista-de-personal-page-contenedor {
     width: 95%;
     margin: 0 auto;
+  }
+
+  .card-option {
+    width: 42vw;
+    height: 200px;
+    margin: 8px;
+    border-radius: 12px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
 }

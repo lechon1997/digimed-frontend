@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ListaDeFuncionesPage from "../page/ListaDeFuncionesPage";
 import ListaDePersonalPage from "../page/ListaDePersonalPage";
 import NuevoPacientePage from "../page/NuevoPacientePage";
-import VerificarDniPage from "../page/VerificarDniPage"
+import VerificarDniPage from "../page/VerificarDniPage";
 import CardOption from "./CardOption";
 import TituloCardOption from "./TituloCardOption";
 import ImagenCardOption from "./ImagenCardOption";
