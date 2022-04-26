@@ -5,6 +5,7 @@ const URL_BASE = "https://app-digimed.herokuapp.com/api";
 export const LOADING = "LOADING";
 export const LOADED_SUCCESS = "LOADED_SUCCESS";
 export const LOADED_FAILURE = "LOADED_FAILURE";
+export const LIMPIAR_REDIRECT= "LIMPIAR_REDIRECT";
 
 export const loading = () => ({ type: LOADING });
 
@@ -12,7 +13,13 @@ export const success = (payload) => ({
   type: LOADED_SUCCESS,
   payload,
 });
-
+export function limpiarRedirectPaciente() {
+  return (dispatch) => {
+    dispatch({
+      type: LIMPIAR_REDIRECT,
+    });
+  };
+}
 export const failure = () => ({ type: LOADED_FAILURE });
 
 export function postPaciente(paciente) {
@@ -59,7 +66,6 @@ export function agregarSintomas(data) {
       );
       const res = await response.json();
       console.log("coso actualizado:", res);
-      //dispatch(success({ redirect: `/paciente/sintomas/${data.id}` }));
     } catch (error) {
       dispatch(failure());
     }

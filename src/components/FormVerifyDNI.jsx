@@ -21,6 +21,16 @@ const FormVerifyDNI = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    const dni= e.target.dni.value;
+    if (dni.length>10) {
+      window.alert("el dni no debe tener mas diez caracteres");
+      return false;
+    }
+    if (dni.length<10) {
+      window.alert("el dni debe tener al menos diez caracteres");
+      return false;
+    }
+
     dispatch(buscarDni(e.target.dni.value));
 
   }
@@ -33,7 +43,7 @@ const FormVerifyDNI = () => {
         className="d-flex flex-column align-items-center"
       >
         <input
-          type="dni"
+          type="number"
           name="dni"
           className="input-lindo mb-4"
           placeholder="Ingrese dni"
