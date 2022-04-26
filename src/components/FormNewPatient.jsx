@@ -69,16 +69,18 @@ const FormNewPatient = () => {
                     className="d-flex flex-column align-items-center"
                 >
                     <input
-                        type="name"
+                        
                         name="name"
                         className="input-lindo mb-4"
+                        type="text"
+                        pattern="^[A-Za-z]+$"
                         placeholder="Nombre"
                         id="exampleInputName"
                         aria-describedby="nameHelp"
                     />
 
                     <input
-                        type="dni"
+                        type="number"
                         name="dni"
                         className="input-lindo mb-4"
                         placeholder="DNI"
