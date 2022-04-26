@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ListaDeFuncionesPage from "../page/ListaDeFuncionesPage";
 import ListaDePersonalPage from "../page/ListaDePersonalPage";
 import NuevoPacientePage from "../page/NuevoPacientePage";
+import VerificarDniPage from "../page/VerificarDniPage"
 import CardOption from "./CardOption";
 import TituloCardOption from "./TituloCardOption";
 import ImagenCardOption from "./ImagenCardOption";
@@ -12,7 +13,7 @@ import img3 from "../static/imagenes-cards/lista-de-tareas.png";
 const Menu = () => {
   return (
     <div className="container d-flex flex-wrap list-cards-option">
-      <Link to="/nuevo-paciente">
+      <Link to="/verificar-dni">
         <CardOption>
           <TituloCardOption titulo={"Nuevo paciente"} />
           <ImagenCardOption img={img1} />
