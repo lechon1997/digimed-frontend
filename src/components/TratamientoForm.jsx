@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import { postTratamiento } from "../actions/tratamientoActions";
 
 
 const TratamientoForm = () => {
 
+    let pathParams = useParams();
     const redirect = useSelector((state) => state.tratamiento.redirect);
     const navigate = useNavigate();
     const {register, handleSubmit, formState: { errors },} = useForm();
@@ -15,12 +17,30 @@ const TratamientoForm = () => {
 
     const onSubmit = (data) =>{
         console.log(data.procedimiento);
-        dispatch(postTratamiento(data, "931e115c-c"));
+        console.log(pathParams.idatencion);
+        dispatch(postTratamiento(data, pathParams.idatencion));
     }
 
     useEffect(() => {
       if(redirect) {navigate(redirect)}    
     }, [redirect])
+
+    const cancelHandler = () => {
+
+        Swal.fire({
+            title: 'Quiere realmente cancelar el proceso?',
+            showDenyButton: true,
+            confirmButtonText: 'Si',
+            denyButtonText: `No, continuar.`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire('Atencion terminada', '', 'info')
+              navigate("/nuevo-paciente")
+            } else if (result.isDenied) {
+              return
+            }
+          })
+    }
     
 
     return (
@@ -75,7 +95,7 @@ const TratamientoForm = () => {
                 </button>
             </form>
             <div className="d-flex flex-column align-items-center mt-5">
-                <button id="cancelar-tratamiento" className="btn-cancelar" onClick={() => navigate("/nuevo-paciente")}>
+                <button id="cancelar-tratamiento" className="btn-cancelar" onClick={cancelHandler}>
                     Cancelar
                 </button>
             </div>

@@ -1,4 +1,5 @@
-const URL_BASE = 'http://localhost:8080'
+// const URL_BASE = 'http://localhost:8080'
+const URL_BASE = 'https://app-digimed.herokuapp.com'
 
 export const LOADING_TRATAMIENTO = 'LOADING_TRATAMIENTO'
 export const LOADED_SUCCESS_TRATAMIENTO = 'LOADED_SUCCESS_TRATAMIENTO'
@@ -15,11 +16,8 @@ export const failure = () => ({ type: LOADED_FAILURE_TRATAMIENTO })
 
 export function postTratamiento(tratamiento, atencionId) {
     return async (dispatch) => {
-        console.log(tratamiento)
-        console.log(atencionId);
         dispatch(loading());
         try {
-            // atencionId = "931e115c-c";
             const response = await fetch(
                 `${URL_BASE}/api/am/agregarTratamiento/${atencionId}`,
                 {

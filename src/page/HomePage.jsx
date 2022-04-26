@@ -14,7 +14,7 @@ const HomePage = () => {
         <Route path="/nuevo-paciente" element={<NuevoPacientePage />} />
         <Route path="/lista-de-personal" element={<ListaDePersonalPage />} />
         <Route path="/lista-de-funciones" element={<ListaDeFuncionesPage />} />
-        <Route path="/add-tratamiento" element={<TratamientoForm />} />
+        <Route path="/atencion/tratamiento/:idatencion" element={<TratamientoForm />} />
       </Routes>
     </div>
   );
