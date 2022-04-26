@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { agregarSintomas } from "../actions/pacienteActions";
-
+import { limpiar } from "../actions/verifyActions"
+import {limpiarRedirectPaciente} from "../actions/pacienteActions.js"
 const SintomasPage = ({ dispatch }) => {
+
+  useEffect(() => {
+    dispatch(limpiar())
+    dispatch(limpiarRedirectPaciente())
+  }, [])
+
   let params = useParams();
   const fechaHoy = new Date();
 
@@ -32,6 +39,8 @@ const SintomasPage = ({ dispatch }) => {
       e.target.sintomas.value = "";
     }
   };
+
+
   return (
     <div className="formulario-sintomas mt-3 w-50">
       <div className="d-flex justify-content-between">
@@ -49,7 +58,7 @@ const SintomasPage = ({ dispatch }) => {
         </div>
         <div className="d-flex justify-content-end w-100">
           <button
-            className="btn-ingresar2"
+            className="btn-ingresar2 "
             type="submit"
             id="btn-ingresar-sintomas"
           >

@@ -37,14 +37,7 @@ const FormDiagnostico = () => {
                 onSubmit={submitHandler}
                 className="d-flex flex-column align-items-center "
             ><label className="mb-4">Diagnostico</label>
-                <input
-                    type="medicamentos"
-                    name="medicamentos"
-                    className="input-lindo mb-4"
-                    placeholder="Ingrese medicamentos"
-                    id="exampleInputMedicamentos1"
-                    aria-describedby="medicamentosHelp"
-                />
+        
                 <input
                     type="resultados"
                     name="resultados"
