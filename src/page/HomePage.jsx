@@ -7,7 +7,7 @@ import Menu from "../components/Menu";
 
 const HomePage = () => {
   return (
-    <div className="menu-home">
+    <div className="menu-home w-100">
       <Routes>
         <Route path="/" element={<Menu />} />
         <Route path="/nuevo-paciente" element={<NuevoPacientePage />} />

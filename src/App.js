@@ -31,7 +31,7 @@ function App({ cargando, dispatch }) {
         <div>
           <BrowserRouter>
             <Header user={user} auth={auth} />
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center w-100">
               {user ? <HomePage /> : <LoginPage />}
             </div>
           </BrowserRouter>

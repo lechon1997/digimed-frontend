@@ -173,6 +173,35 @@ h6 {
   border-bottom-right-radius: 4px;
 }
 
+.lista-de-personal-page-contenedor {
+  width: 50%;
+  margin: 0 auto;
+  padding-top: 16px;
+}
+
+.btn-nuevo-personal {
+  border: none;
+  width: 150px;
+  height: 40px;
+  margin-bottom: 25px;
+  background-color: #26a69a;
+  color: white;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+.btn-nuevo-personal:hover {
+  background-color: #009688;
+}
+
+.btn-nuevo-personal:active {
+  outline: none;
+}
+
+.btn-nuevo-personal:focus {
+  outline: none;
+}
+
 @media only screen and (max-width: 720px) {
   .fondo-logo {
     width: 100px;
@@ -230,5 +259,10 @@ h6 {
 
   .list-cards-option {
     justify-content: center;
+  }
+
+  .lista-de-personal-page-contenedor {
+    width: 95%;
+    margin: 0 auto;
   }
 }
