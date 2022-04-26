@@ -33,9 +33,9 @@ export function postPaciente(paciente) {
                     body: JSON.stringify(paciente)
                 }
             )
-            const id = await response.text()
-            console.log(id)
-            dispatch(success({redirect: `/`}));
+            const data = await response.json();
+            console.log(data)
+            dispatch(success({redirect: `/paciente/sintomas/${data.dni}`}));
             
         } catch (error) {
           

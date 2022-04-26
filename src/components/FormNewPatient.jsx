@@ -1,10 +1,22 @@
-import React from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { limpiar } from '../actions/verifyActions';
 import {postPaciente} from '../actions/pacienteActions'
+import { useNavigate } from 'react-router-dom';
 
 const FormNewPatient = () => {
 
+    const navigate = useNavigate();
+    const redirect = useSelector(state =>
+      state.paciente.redirect
+    );
+    useEffect(() => {
+      if (redirect) {
+        navigate(redirect)
+      }
+  
+  
+    }, [redirect])
   const dispatch= useDispatch();
     const submitHandler = (e) => {
 
@@ -47,7 +59,6 @@ const FormNewPatient = () => {
         }
         
         dispatch(limpiar())
-        console.log('hola desde submit')
         dispatch(postPaciente({nombre:name,dni,email,celular,eps}))
     }
     return (

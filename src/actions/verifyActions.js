@@ -35,7 +35,7 @@ export function buscarDni(dni) {
                 console.log('de aqui se va para el otro formulario')
                 dispatch({
                     type: OBTENER_PACIENTE, payload: {
-                        paciente: data, redirect: '/'
+                        paciente: data, redirect: `/paciente/sintomas/${data.dni}`
                     }
                 })
             }

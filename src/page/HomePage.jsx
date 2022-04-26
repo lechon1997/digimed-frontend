@@ -12,7 +12,7 @@ const HomePage = () => {
  
   return (
     <div className="menu-home w-100">
-      <BrowserRouter>
+    
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/nuevo-paciente" element={<NuevoPacientePage />} />
@@ -20,7 +20,7 @@ const HomePage = () => {
           <Route path="/verificar-dni" element={<VerificarDniPage />} />
           <Route path="/lista-de-funciones"element={<ListaDeFuncionesPage />}/>
         </Routes>
-      </BrowserRouter>
+    
     </div>
   );
 };
