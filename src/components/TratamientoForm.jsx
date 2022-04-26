@@ -16,8 +16,21 @@ const TratamientoForm = () => {
     const dispatch = useDispatch();
 
     const onSubmit = (data) =>{
-        console.log(data.procedimiento);
-        console.log(pathParams.idatencion);
+        if(!data.procedimiento.trim()){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No se permiten espacios en blanco.',
+              })
+              return;
+        }
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Atención terminada',
+            showConfirmButton: false,
+            timer: 1500
+          })
         dispatch(postTratamiento(data, pathParams.idatencion));
     }
 
@@ -58,7 +71,7 @@ const TratamientoForm = () => {
                     rows="6"
                     required
                 />
-                <h5 className="mt-4">Seleccionar como proseguir con la atencion:</h5>
+                <h3 className="mt-4">Seleccionar como proseguir con la atención:</h3>
                 <label htmlFor="estado-ingresado">
                     <input
                         {...register("estado", { required: true,})}
@@ -87,11 +100,11 @@ const TratamientoForm = () => {
                         value="REMITIDO"
                         id="estado-remitido"
                     />
-                    Remitir a otra institucion
+                    Remitir a otra institución
                 </label>
                 {errors.estado && <p style={{color: "red", fontSize: "12px"}}>"Debe seleccionar una opcion"</p>}
                 <button id="enviar-tratamiento" type="submit" className="btn-ingresar mt-5">
-                    Enviar
+                    Fin Atención
                 </button>
             </form>
             <div className="d-flex flex-column align-items-center mt-5">
