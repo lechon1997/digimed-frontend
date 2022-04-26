@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import NuevoPacientePage from "./NuevoPacientePage";
 import ListaDeFuncionesPage from "./ListaDeFuncionesPage";
 import ListaDePersonalPage from "./ListaDePersonalPage";
 import VerificarDniPage from "./VerificarDniPage";
 import Menu from "../components/Menu";
 import SintomasPage from "./SintomasPage";
-import { useSelector } from "react-redux";
-import * as actions from "../actions/verifyActions";
+import TratamientoForm from "../components/TratamientoForm";
 
 const HomePage = () => {
   return (
@@ -19,6 +18,7 @@ const HomePage = () => {
         <Route path="/verificar-dni" element={<VerificarDniPage />} />
         <Route path="/lista-de-funciones" element={<ListaDeFuncionesPage />} />
         <Route path="/paciente/sintomas/:id" element={<SintomasPage />} />
+        <Route path="/atencion/tratamiento/:idatencion" element={<TratamientoForm />} />
       </Routes>
     </div>
   );
