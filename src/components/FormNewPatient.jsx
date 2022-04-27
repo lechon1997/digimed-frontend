@@ -57,7 +57,6 @@ const FormNewPatient = () => {
             window.alert("el numero debe tener al menos diez caracteres");
             return false;
         }
-        
         dispatch(limpiar())
         dispatch(postPaciente({nombre:name,dni,email,celular,eps}))
     }

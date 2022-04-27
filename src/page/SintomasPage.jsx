@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { agregarSintomas } from "../actions/pacienteActions";
 import { limpiar } from "../actions/verifyActions"
 import {limpiarRedirectPaciente} from "../actions/pacienteActions.js"
 const SintomasPage = ({ dispatch }) => {
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(limpiar())
     dispatch(limpiarRedirectPaciente())
@@ -37,6 +37,7 @@ const SintomasPage = ({ dispatch }) => {
       );
       window.alert("cita ingresada correctamente");
       e.target.sintomas.value = "";
+      navigate('/paciente/diagnostico/'+params.id)
     }
   };
 
@@ -48,7 +49,7 @@ const SintomasPage = ({ dispatch }) => {
         <label className="mb-4">Fecha: {fechaLinda}</label>
       </div>
       <form onSubmit={onsubmit}>
-        <div class="mb-3">
+        <div className="mb-3">
           <textarea
             name="sintomas"
             className="form-control w-100"

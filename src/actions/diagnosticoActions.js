@@ -1,5 +1,5 @@
 const URL_BASE = "https://app-digimed.herokuapp.com/api/am";
-
+// const URL_BASE ="http://localhost:8080/api/am";
 
 export const LOADING = "LOADING";
 export const LOADED_SUCCESS = "LOADED_SUCCESS";
@@ -26,10 +26,11 @@ export function limpiar() {
 export function agregarDiagnostico(data) {
     console.log(data);
     return async (dispatch) => {
+        console.log('entre')
         dispatch(loading());
         try {
             const response = await fetch(
-                `${URL_BASE}/paciente/urlpendiente/${data.id}`,
+                `${URL_BASE}`,
                 {
                     method: "POST",
                     mode: "cors",
@@ -37,16 +38,18 @@ export function agregarDiagnostico(data) {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-
+                        doctorID: "1",
+                        pacienteID: data.idPaciente,
                         diagnostico: {
-                            descripcion: data.diagnostico,
+                             medicamentos: "paracetamol",
+                             resultados: data.resultados
                         },
                     }),
 
                 }
             );
-            const data = await response.json();
-            console.log(data);
+            const res = await response.json();
+            console.log(res);
             dispatch(success({ redirect: `/paciente/diagnostico/${data.id}` }));
         } catch (error) {
             dispatch(failure());
