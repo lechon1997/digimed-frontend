@@ -1,0 +1,103 @@
+
+
+.my-node-enter {
+    opacity: 0;
+  }
+  .my-node-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  .my-node-exit {
+    opacity: 1;
+  }
+  .my-node-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+
+  .alert-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .alert-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  .alert-exit {
+    opacity: 1;
+  }
+  .alert-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  .btn-fin-atencion {
+    border: none;
+    width: 150px;
+    height: 40px;
+    margin-bottom: 25px;
+    background-color: #26a69a;
+    color: white;
+    font-weight: 600;
+    border-radius: 2px;
+  }
+  
+  .btn-fin-atencion:hover {
+    background-color: #009688;
+  }
+  
+  .btn-v:active {
+    outline: none;
+  }
+  
+  .btn-fin-atencion:focus {
+    outline: none;
+  }
+
+  .btn-cancelar-atencion {
+    border: none;
+    width: 150px;
+    height: 40px;
+    margin-bottom: 25px;
+    background-color: #f0b64c;
+    color: rgba(14, 3, 3, 0.945);
+    font-weight: 600;
+    border-radius: 2px;
+  }
+  
+  .btn-cancelar-atencion:hover {
+    background-color: #ee9d34;
+  }
+  
+  .btn-v:active {
+    outline: none;
+  }
+  
+  .btn-cancelar-atencion:focus {
+    outline: none;
+  }
+
+  .btn-cita {
+    border: none;
+    width: 150px;
+    height: 40px;
+    margin-bottom: 25px;
+    background-color: #3f5de6;
+    color: rgb(248, 244, 244);
+    font-weight: 600;
+    border-radius: 2px;
+  }
+  
+  .btn-cita:hover {
+    background-color: #0343f1;
+  }
+  
+  .btn-v:active {
+    outline: none;
+  }
+  
+  .btn-cita:focus {
+    outline: none;
+  }

@@ -1,17 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { postTratamiento } from "../actions/tratamientoActions";
-
+import { CSSTransition } from 'react-transition-group';
+import '../asset/style/transsitions.css'
 
 const TratamientoForm = () => {
 
     let pathParams = useParams();
     const redirect = useSelector((state) => state.tratamiento.redirect);
     const navigate = useNavigate();
-    const {register, handleSubmit, formState: { errors },} = useForm();
+    const {register, handleSubmit, formState: { errors }, watch} = useForm();
+    const [showCalendar, setShowCalendar] = useState(false);
+
+    const [ datetime, setDatetime ] = useState('');
+    const [ validateDatetime, setValidateDatetime ] = useState(false);
+
+    
+    React.useEffect(() => {
+        const subscription = watch((value, { name, type }) => value.estado === "DADO_DE_ALTA" ? setShowCalendar(true) : setShowCalendar(false) );
+        return () => subscription.unsubscribe();
+      }, [watch]);
 
     const dispatch = useDispatch();
 
@@ -55,6 +66,20 @@ const TratamientoForm = () => {
           })
     }
     
+    const handleDateChange = (e) => {
+        setDatetime(e.target.value);
+    }
+
+    const handleCita = (e) => {
+        e.preventDefault()
+        console.log(datetime)
+        setValidateDatetime(false);
+        if(!datetime){
+            setValidateDatetime(true);
+            return
+        }
+        
+    }
 
     return (
         <>
@@ -102,13 +127,35 @@ const TratamientoForm = () => {
                     />
                     Remitir a otra institución
                 </label>
-                {errors.estado && <p style={{color: "red", fontSize: "12px"}}>"Debe seleccionar una opcion"</p>}
-                <button id="enviar-tratamiento" type="submit" className="btn-ingresar mt-5">
+                {errors.estado && <p style={{color: "red", fontSize: "12px"}} id="validar-estado">"Debe seleccionar una opcion"</p>}
+                <CSSTransition
+                    in={showCalendar}
+                    timeout={300}
+                    classNames="alert"
+                    unmountOnExit
+                >
+                            <div className="d-flex flex-column align-items-center mt-5">
+                                <p>Programar cita</p>
+                                <input
+                                    id="fecha-cita"
+                                    type="datetime-local"
+                                    name="fechaCita"
+                                    className="mb-2 mt-1"
+                                    min={new Date()}
+                                    onChange={handleDateChange}
+                                />
+                                {validateDatetime && <p style={{color: "red", fontSize: "12px"}} id="validar-fecha">"Debe seleccionar una fecha"</p>}
+                                <button id="adicionar-cita" className="btn-cita " onClick={handleCita}>
+                                    Programar cita
+                                </button>
+                            </div>
+                </CSSTransition>
+                <button id="enviar-tratamiento" type="submit" className="btn-fin-atencion mt-5">
                     Fin Atención
                 </button>
             </form>
-            <div className="d-flex flex-column align-items-center mt-5">
-                <button id="cancelar-tratamiento" className="btn-cancelar" onClick={cancelHandler}>
+            <div className="d-flex flex-column align-items-center mt-3">
+                <button id="cancelar-tratamiento" className="btn-cancelar-atencion" onClick={cancelHandler}>
                     Cancelar
                 </button>
             </div>
