@@ -17,18 +17,19 @@ import ListaDeFunciones from "../components/ListaDeFunciones";
 const HomePage = () => {
   return (
     <div className="menu-home w-100">
+      
       <Routes>
         <Route path="/" element={<Menu />} />
         <Route path="/nuevo-paciente" element={<NuevoPacientePage />} />
         <Route path="/lista-de-personal" element={<ListaDePersonalPage />} />
         <Route path="/verificar-dni" element={<VerificarDniPage />} />
-        <Route path="/lista-de-funciones" element={<ListaDeFunciones />} />
+        <Route path="/lista-de-funciones" element={<ListaDeFuncionesPage />} />
         <Route path="/ingresar-funcion" element={<FormularioNuevaFuncionPage />}/>
         <Route path="/paciente/sintomas/:id" element={<SintomasPage />} />
-        {/** <Route path="/delegar-tareas" element={<DelegarTareasPage />} /> */}
         <Route path="/paciente/diagnostico/:id" element={<DiagnosticoPage />} />
         <Route path="/atencion/tratamiento/:idatencion/:idPaciente" element={<TratamientoForm />} />
       </Routes>
+      <button className="btn-redireccion">Encuesta</button>
     </div>
   );
 };
