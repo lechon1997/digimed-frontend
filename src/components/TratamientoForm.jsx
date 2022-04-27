@@ -6,27 +6,47 @@ import Swal from "sweetalert2";
 import { postTratamiento } from "../actions/tratamientoActions";
 import { CSSTransition } from 'react-transition-group';
 import '../asset/style/transsitions.css'
+import { Form } from "react-bootstrap";
+
+/**
+ * Formulario para registrar los tratamientos.
+ * Ingreso desde redireccion desde SintomasPage
+ * @returns 
+ */
 
 const TratamientoForm = () => {
 
     let pathParams = useParams();
     const redirect = useSelector((state) => state.tratamiento.redirect);
     const navigate = useNavigate();
-    const {register, handleSubmit, formState: { errors }, watch} = useForm();
-    const [showCalendar, setShowCalendar] = useState(false);
+    const {register, handleSubmit, formState: { errors }, watch, setValue} = useForm();
+    const [showCitaCheck, setshowCitaCheck] = useState(false);
 
     const [ datetime, setDatetime ] = useState('');
     const [ validateDatetime, setValidateDatetime ] = useState(false);
 
-    
+    const watchAddCita = watch("addCita", false);
     React.useEffect(() => {
-        const subscription = watch((value, { name, type }) => value.estado === "DADO_DE_ALTA" ? setShowCalendar(true) : setShowCalendar(false) );
+        const subscription = watch((value, { name, type }) => {
+            if(value.estado === "DADO_DE_ALTA") {
+                setshowCitaCheck(true);
+            }else {
+                setshowCitaCheck(false)};
+            }
+        )
         return () => subscription.unsubscribe();
       }, [watch]);
+
+    useEffect(() => {
+      if(!showCitaCheck){ setValue("addCita", false)}
+    }, [showCitaCheck])
+    
 
     const dispatch = useDispatch();
 
     const onSubmit = (data) =>{
+        console.log(data)
+        console.log(watchAddCita)
         if(!data.procedimiento.trim()){
             Swal.fire({
                 icon: 'error',
@@ -128,9 +148,17 @@ const TratamientoForm = () => {
                     Remitir a otra institución
                 </label>
                 {errors.estado && <p style={{color: "red", fontSize: "12px"}} id="validar-estado">"Debe seleccionar una opcion"</p>}
+                <hr/>
+                <Form.Check 
+                    disabled={!showCitaCheck}
+                    {...register("addCita")}
+                    type="switch"
+                    label="Adicionar cita"
+                    id="agregar-cita"
+                />
                 <CSSTransition
-                    in={showCalendar}
-                    timeout={300}
+                    in={watchAddCita}
+                    timeout={500}
                     classNames="alert"
                     unmountOnExit
                 >
