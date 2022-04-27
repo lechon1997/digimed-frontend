@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { limpiarRedirectDiagnostico } from "../actions/diagnosticoActions";
-import { postTratamiento } from "../actions/tratamientoActions";
+import { limpiarRedirectTratamiento, postTratamiento } from "../actions/tratamientoActions";
 import '../assets/styles/transsitions.css'
 
 
@@ -40,7 +40,12 @@ const TratamientoForm = () => {
       if(redirect) {navigate(redirect)}  
       
       dispatch(limpiarRedirectDiagnostico());
+
+      return () => {
+        dispatch(limpiarRedirectTratamiento());
+      }
     }, [redirect])
+    
 
     const cancelHandler = () => {
 

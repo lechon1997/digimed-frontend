@@ -4,6 +4,7 @@ const URL_BASE = 'https://app-digimed.herokuapp.com'
 export const LOADING_TRATAMIENTO = 'LOADING_TRATAMIENTO'
 export const LOADED_SUCCESS_TRATAMIENTO = 'LOADED_SUCCESS_TRATAMIENTO'
 export const LOADED_FAILURE_TRATAMIENTO = 'LOADED_FAILURE_TRATAMIENTO'
+export const LIMPIAR_REDIRECT = "LIMPIAR_REDIRECT"
 
 export const loading = () => ({ type: LOADING_TRATAMIENTO })
 
@@ -13,6 +14,14 @@ export const success = payload => ({
 });
 
 export const failure = () => ({ type: LOADED_FAILURE_TRATAMIENTO })
+
+export function limpiarRedirectTratamiento() {
+    return (dispatch) => {
+        dispatch({
+            type: LIMPIAR_REDIRECT,
+        });
+    };
+}
 
 export function postTratamiento(tratamiento, atencionId) {
     return async (dispatch) => {
