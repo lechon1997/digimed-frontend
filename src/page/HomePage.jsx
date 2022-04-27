@@ -27,10 +27,7 @@ const HomePage = () => {
         <Route path="/paciente/sintomas/:id" element={<SintomasPage />} />
         {/** <Route path="/delegar-tareas" element={<DelegarTareasPage />} /> */}
         <Route path="/paciente/diagnostico/:id" element={<DiagnosticoPage />} />
-        <Route
-          path="/atencion/tratamiento/:idatencion"
-          element={<TratamientoForm />}
-        />
+        <Route path="/atencion/tratamiento/:idatencion/:idPaciente" element={<TratamientoForm />} />
       </Routes>
     </div>
   );

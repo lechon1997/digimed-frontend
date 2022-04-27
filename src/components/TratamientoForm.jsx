@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { postTratamiento } from "../actions/tratamientoActions";
+import { limpiarRedirectDiagnostico } from "../actions/diagnosticoActions";
+import { limpiarRedirectTratamiento, postTratamiento } from "../actions/tratamientoActions";
+import '../assets/styles/transsitions.css'
 
 
 const TratamientoForm = () => {
@@ -35,8 +37,15 @@ const TratamientoForm = () => {
     }
 
     useEffect(() => {
-      if(redirect) {navigate(redirect)}    
+      if(redirect) {navigate(redirect)}  
+      
+      dispatch(limpiarRedirectDiagnostico());
+
+      return () => {
+        dispatch(limpiarRedirectTratamiento());
+      }
     }, [redirect])
+    
 
     const cancelHandler = () => {
 
@@ -103,12 +112,12 @@ const TratamientoForm = () => {
                     Remitir a otra institución
                 </label>
                 {errors.estado && <p style={{color: "red", fontSize: "12px"}}>"Debe seleccionar una opcion"</p>}
-                <button id="enviar-tratamiento" type="submit" className="btn-ingresar mt-5">
+                <button id="enviar-tratamiento" type="submit" className="btn-fin-atencion mt-5">
                     Fin Atención
                 </button>
             </form>
             <div className="d-flex flex-column align-items-center mt-5">
-                <button id="cancelar-tratamiento" className="btn-cancelar" onClick={cancelHandler}>
+                <button id="cancelar-tratamiento" className="btn-cancelar-atencion" onClick={cancelHandler}>
                     Cancelar
                 </button>
             </div>

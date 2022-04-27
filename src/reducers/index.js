@@ -4,6 +4,7 @@ import personalReducer from "./personalReducer";
 import pacienteReducers from "./pacienteReducer";
 import verifyReducer from "./verifyReducer";
 import tratamientoReducer from "./tratamientoReducer";
+import diagnosticoReducer from "./DiagnosticoReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   verifyPaciente: verifyReducer,
   paciente: pacienteReducers,
   tratamiento: tratamientoReducer,
+  diagnostico: diagnosticoReducer,
 })
 
 export default rootReducer;
