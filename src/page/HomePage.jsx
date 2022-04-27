@@ -11,6 +11,8 @@ import DiagnosticoPage from "./DiagnosticoPage";
 import { useSelector } from "react-redux";
 import * as actions from "../actions/verifyActions";
 import TratamientoForm from "../components/TratamientoForm";
+import FormularioNuevaFuncionPage from "./FormularioNuevaFuncionPage";
+import ListaDeFunciones from "../components/ListaDeFunciones";
 
 const HomePage = () => {
   return (
@@ -20,7 +22,8 @@ const HomePage = () => {
         <Route path="/nuevo-paciente" element={<NuevoPacientePage />} />
         <Route path="/lista-de-personal" element={<ListaDePersonalPage />} />
         <Route path="/verificar-dni" element={<VerificarDniPage />} />
-        <Route path="/lista-de-funciones" element={<ListaDeFuncionesPage />} />
+        <Route path="/lista-de-funciones" element={<ListaDeFunciones />} />
+        <Route path="/ingresar-funcion" element={<FormularioNuevaFuncionPage />}/>
         <Route path="/paciente/sintomas/:id" element={<SintomasPage />} />
         {/** <Route path="/delegar-tareas" element={<DelegarTareasPage />} /> */}
         <Route path="/paciente/diagnostico/:id" element={<DiagnosticoPage />} />
