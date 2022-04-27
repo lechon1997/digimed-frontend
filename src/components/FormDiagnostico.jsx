@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate,useParams } from 'react-router-dom';
-import diagnosticoReducer from '../reducers/DiagnosticoReducer';
 import {agregarDiagnostico} from '../actions/diagnosticoActions'
 
 const FormDiagnostico = () => {
-    const redirect = useSelector((state) => state.tratamiento.redirect);
+    const redirect = useSelector((state) => state.diagnostico.redirect);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     

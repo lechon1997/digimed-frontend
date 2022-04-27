@@ -15,7 +15,7 @@ export const success = (payload) => ({
 
 export const failure = () => ({ type: LOADED_FAILURE });
 
-export function limpiar() {
+export function limpiarRedirectDiagnostico() {
     return (dispatch) => {
         dispatch({
             type: LIMPIAR_REDIRECT,
@@ -50,8 +50,9 @@ export function agregarDiagnostico(data) {
             );
             const res = await response.json();
             console.log(res);
-            dispatch(success({ redirect: `/paciente/diagnostico/${data.id}` }));
+            dispatch(success({ redirect: `/atencion/tratamiento/${res.id}/${res.pacienteID}` }));
         } catch (error) {
+            console.log(error);
             dispatch(failure());
 
         } 
