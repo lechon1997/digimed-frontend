@@ -17,7 +17,7 @@ export const initialState = {
       case actions.LOADED_FAILURE_TRATAMIENTO:
         return { ...state, loading: false, hasErrors: true, finAtencion:null }
       case actions.LIMPIAR_REDIRECT:
-        return { ...state, redirect: null}
+        return { ...state, redirect: null, hasErrors: false}
       case actions.RESET_FIN_ATENCION:
         return { ...state, finAtencion: null}
       default:

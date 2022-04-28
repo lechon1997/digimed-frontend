@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate,useParams } from 'react-router-dom';
-import {agregarDiagnostico} from '../actions/diagnosticoActions'
+import {agregarDiagnostico, limpiarRedirectDiagnostico} from '../actions/diagnosticoActions'
 
 const FormDiagnostico = () => {
     const redirect = useSelector((state) => state.diagnostico.redirect);
@@ -12,6 +12,10 @@ const FormDiagnostico = () => {
 
     useEffect(() => {
         if (redirect) { navigate(redirect) }
+
+        return () => {
+            dispatch(limpiarRedirectDiagnostico());
+        }
     }, [redirect])
 
     const cancelHandler = () => {

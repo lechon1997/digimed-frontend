@@ -1,5 +1,5 @@
-// const URL_BASE = 'http://localhost:8080'
-const URL_BASE = 'https://app-digimed.herokuapp.com'
+const URL_BASE = 'http://localhost:8080'
+// const URL_BASE = 'https://app-digimed.herokuapp.com'
 
 export const LOADING_TRATAMIENTO = 'LOADING_TRATAMIENTO'
 export const LOADED_SUCCESS_TRATAMIENTO = 'LOADED_SUCCESS_TRATAMIENTO'
@@ -47,7 +47,6 @@ export function postTratamiento(tratamientoCita, atencionId, idPaciente) {
                 }
             );
             const savedAM = await response.json();
-            console.log(savedAM);
             let finAtencion = savedAM.tratamiento.estado === "DADO_DE_ALTA" ?
                                 "DADO_DE_ALTA" : 
                                 (savedAM.tratamiento.estado === "INGRESADO_HOSPITAL" ?
