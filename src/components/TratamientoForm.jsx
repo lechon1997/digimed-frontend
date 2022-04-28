@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { postTratamiento } from "../actions/tratamientoActions";
+import { limpiarRedirectTratamiento, postTratamiento } from "../actions/tratamientoActions";
 import { CSSTransition } from 'react-transition-group';
 import '../asset/style/transsitions.css'
 import { Form } from "react-bootstrap";
@@ -19,19 +19,23 @@ const TratamientoForm = () => {
     let pathParams = useParams();
     const redirect = useSelector((state) => state.tratamiento.redirect);
     const navigate = useNavigate();
-    const {register, handleSubmit, formState: { errors }, watch, setValue} = useForm();
+    const {register, handleSubmit, formState: { errors }, watch, setValue, getValues} = useForm();
     const [showCitaCheck, setshowCitaCheck] = useState(false);
 
-    const [ datetime, setDatetime ] = useState('');
+    const [ datetime, setDatetime ] = useState(null);
+    const [ validateDateContent, setValidateDateContent ] = useState(false);
     const [ validateDatetime, setValidateDatetime ] = useState(false);
 
     const watchAddCita = watch("addCita", false);
     React.useEffect(() => {
         const subscription = watch((value, { name, type }) => {
-            if(value.estado === "DADO_DE_ALTA") {
-                setshowCitaCheck(true);
-            }else {
-                setshowCitaCheck(false)};
+                if(value.estado === "DADO_DE_ALTA") {
+                    setshowCitaCheck(true);
+                }else {
+                    setshowCitaCheck(false);
+                    setValidateDateContent(false);
+                    setDatetime(null);
+                };
             }
         )
         return () => subscription.unsubscribe();
@@ -44,9 +48,29 @@ const TratamientoForm = () => {
 
     const dispatch = useDispatch();
 
+    // MANEJO FORMULARIO CON DATOS PARA EL ENVIO DE LA INFORMACION
     const onSubmit = (data) =>{
-        console.log(data)
-        console.log(watchAddCita)
+        let dateTimeToSend = null;
+        if(getValues("addCita")){ dateTimeToSend = datetime }
+
+        const tratamientoCita = {
+            fecha: dateTimeToSend,
+            tratamiento: {
+                estado: data.estado,
+                procedimiento: data.procedimiento
+            }
+        };
+
+        // Validar campo fecha si esta el check de cita
+        if(showCitaCheck && getValues("addCita")) {
+            setValidateDatetime(false);
+            if(!datetime){
+                setValidateDatetime(true);
+                return
+            }
+        }
+
+        // Validar campo de tratamiento
         if(!data.procedimiento.trim()){
             Swal.fire({
                 icon: 'error',
@@ -60,14 +84,20 @@ const TratamientoForm = () => {
             icon: 'success',
             title: 'Atención terminada',
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
           })
-        dispatch(postTratamiento(data, pathParams.idatencion));
+        dispatch(postTratamiento(tratamientoCita, pathParams.idatencion));
     }
 
     useEffect(() => {
-      if(redirect) {navigate(redirect)}    
-    }, [redirect])
+        if(redirect) {navigate(redirect)}  
+        
+        // dispatch(limpiarRedirectDiagnostico());
+  
+        return () => {
+          dispatch(limpiarRedirectTratamiento());
+        }
+      }, [redirect])
 
     const cancelHandler = () => {
 
@@ -87,18 +117,14 @@ const TratamientoForm = () => {
     }
     
     const handleDateChange = (e) => {
-        setDatetime(e.target.value);
-    }
-
-    const handleCita = (e) => {
-        e.preventDefault()
-        console.log(datetime)
-        setValidateDatetime(false);
-        if(!datetime){
-            setValidateDatetime(true);
-            return
+        if(e.target.value < new Date().toISOString()){
+            setDatetime(new Date().toISOString());
+            setValidateDateContent(true);
+        }else{
+            setDatetime(e.target.value);
+            setValidateDateContent(false);
+            setValidateDatetime(false);
         }
-        
     }
 
     return (
@@ -135,7 +161,7 @@ const TratamientoForm = () => {
                         value="DADO_DE_ALTA"
                         id="estado-alta"
                     />
-                    Dar de alta
+                    Dar de alta al paciente
                 </label>
                 <label htmlFor="estado-remitido">
                     <input
@@ -145,7 +171,7 @@ const TratamientoForm = () => {
                         value="REMITIDO"
                         id="estado-remitido"
                     />
-                    Remitir a otra institución
+                    Remitir a otra entidad
                 </label>
                 {errors.estado && <p style={{color: "red", fontSize: "12px"}} id="validar-estado">"Debe seleccionar una opcion"</p>}
                 <hr/>
@@ -173,9 +199,10 @@ const TratamientoForm = () => {
                                     onChange={handleDateChange}
                                 />
                                 {validateDatetime && <p style={{color: "red", fontSize: "12px"}} id="validar-fecha">"Debe seleccionar una fecha"</p>}
-                                <button id="adicionar-cita" className="btn-cita " onClick={handleCita}>
+                                {validateDateContent && <p style={{color: "red", fontSize: "12px"}} id="validar-fecha-posterior">"La fecha debe ser posterior a la actual"</p>}
+                                {/* <button id="adicionar-cita" className="btn-cita " onClick={handleCita}>
                                     Programar cita
-                                </button>
+                                </button> */}
                             </div>
                 </CSSTransition>
                 <button id="enviar-tratamiento" type="submit" className="btn-fin-atencion mt-5">

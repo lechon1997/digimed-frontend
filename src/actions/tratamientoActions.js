@@ -1,9 +1,10 @@
-// const URL_BASE = 'http://localhost:8080'
-const URL_BASE = 'https://app-digimed.herokuapp.com'
+const URL_BASE = 'http://localhost:8080'
+// const URL_BASE = 'https://app-digimed.herokuapp.com'
 
 export const LOADING_TRATAMIENTO = 'LOADING_TRATAMIENTO'
 export const LOADED_SUCCESS_TRATAMIENTO = 'LOADED_SUCCESS_TRATAMIENTO'
 export const LOADED_FAILURE_TRATAMIENTO = 'LOADED_FAILURE_TRATAMIENTO'
+export const LIMPIAR_REDIRECT = "LIMPIAR_REDIRECT"
 
 export const loading = () => ({ type: LOADING_TRATAMIENTO })
 
@@ -14,12 +15,28 @@ export const success = payload => ({
 
 export const failure = () => ({ type: LOADED_FAILURE_TRATAMIENTO })
 
+export function limpiarRedirectTratamiento() {
+    return (dispatch) => {
+        dispatch({
+            type: LIMPIAR_REDIRECT,
+        });
+    };
+}
+
 export function postTratamiento(tratamiento, atencionId) {
     return async (dispatch) => {
+
+        let tratamientoEndpoint = "agregarTratamiento";
+        if(tratamiento.fecha !== null){
+            tratamientoEndpoint = "agregarTratamientoCita"
+        }
+        console.log(tratamiento);
+        console.log(atencionId);
+        console.log(tratamientoEndpoint);
         dispatch(loading());
         try {
             const response = await fetch(
-                `${URL_BASE}/api/am/agregarTratamiento/${atencionId}`,
+                `${URL_BASE}/api/am/${tratamientoEndpoint}/${atencionId}`,
                 {
                     method: "POST",
                     mode: "cors",
@@ -29,8 +46,8 @@ export function postTratamiento(tratamiento, atencionId) {
                     body: JSON.stringify(tratamiento)
                 }
             );
-            const savedTratamiento = await response.text();
-            console.log(savedTratamiento)
+            const savedAM = await response.text();
+            console.log(savedAM)
             dispatch(success({redirect: `/`}));
         } catch (error) {
             console.log(error)

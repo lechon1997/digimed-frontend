@@ -15,6 +15,8 @@ export const initialState = {
         return { ...state, ...action.payload, loading: false, hasErrors: false }
       case actions.LOADED_FAILURE_TRATAMIENTO:
         return { ...state, loading: false, hasErrors: true }
+      case actions.LIMPIAR_REDIRECT:
+        return { ...state, redirect: null}
       default:
         return state
     }
