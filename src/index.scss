@@ -277,6 +277,15 @@ h6 {
   font-weight: 600;
 }
 
+.radius-header-delegar-tareas {
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+.width-inputs-form-delegar {
+  width: 80%;
+}
+
 @media only screen and (max-width: 720px) {
   .fondo-logo {
     width: 100px;

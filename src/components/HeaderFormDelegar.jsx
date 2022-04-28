@@ -1,22 +1,48 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const HeaderFormDelegar = () => {
+const HeaderFormDelegar = ({
+  seleccionarFuncion,
+  editarFuncion,
+  seleccionarEnfermera,
+}) => {
   return (
     <div className="header-form-delegar-tarea d-flex">
-      <div className="item-header-form-delegar">
-        <label className="me-1">1</label>
+      <div
+        className={`item-header-form-delegar bg-primary text-white ${
+          !editarFuncion && !seleccionarEnfermera
+            ? "radius-header-delegar-tareas"
+            : ""
+        }`}
+      >
         <label>Seleccionar funcion</label>
       </div>
-      <div className="item-header-form-delegar">
-        <label className="me-1">2</label>
+      <div
+        className={`item-header-form-delegar ${
+          editarFuncion || seleccionarEnfermera ? "bg-primary text-white" : ""
+        } ${
+          editarFuncion && !seleccionarEnfermera
+            ? "radius-header-delegar-tareas"
+            : ""
+        }`}
+      >
         <label>Editar funcion</label>
       </div>
-      <div className="item-header-form-delegar">
-        <label className="me-1">3</label>
+      <div
+        className={`item-header-form-delegar ${
+          seleccionarEnfermera ? "bg-primary text-white" : ""
+        }`}
+      >
         <label className="">Seleccionar enfermera</label>
       </div>
     </div>
   );
 };
 
-export default HeaderFormDelegar;
+const mapStateToProps = (state) => ({
+  seleccionarFuncion: state.delegarTareas.seleccionarFuncion,
+  editarFuncion: state.delegarTareas.editarFuncion,
+  seleccionarEnfermera: state.delegarTareas.seleccionarEnfermera,
+});
+
+export default connect(mapStateToProps)(HeaderFormDelegar);
