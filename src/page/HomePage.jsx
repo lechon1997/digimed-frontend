@@ -7,6 +7,7 @@ import VerificarDniPage from "./VerificarDniPage";
 import Menu from "../components/Menu";
 import SintomasPage from "./SintomasPage";
 import DiagnosticoPage from "./DiagnosticoPage";
+import DelegarTareasPage from "./DelegarTareasPage";
 import { useSelector } from "react-redux";
 import * as actions from "../actions/verifyActions";
 import TratamientoForm from "../components/TratamientoForm";
