@@ -1,10 +1,11 @@
-const URL_BASE = 'http://localhost:8080'
-// const URL_BASE = 'https://app-digimed.herokuapp.com'
+// const URL_BASE = 'http://localhost:8080'
+const URL_BASE = 'https://app-digimed.herokuapp.com'
 
 export const LOADING_TRATAMIENTO = 'LOADING_TRATAMIENTO'
 export const LOADED_SUCCESS_TRATAMIENTO = 'LOADED_SUCCESS_TRATAMIENTO'
 export const LOADED_FAILURE_TRATAMIENTO = 'LOADED_FAILURE_TRATAMIENTO'
 export const LIMPIAR_REDIRECT = "LIMPIAR_REDIRECT"
+export const RESET_FIN_ATENCION = "RESET_FIN_ATENCION"
 
 export const loading = () => ({ type: LOADING_TRATAMIENTO })
 
@@ -23,11 +24,11 @@ export function limpiarRedirectTratamiento() {
     };
 }
 
-export function postTratamiento(tratamiento, atencionId) {
+export function postTratamiento(tratamientoCita, atencionId) {
     return async (dispatch) => {
 
         let tratamientoEndpoint = "agregarTratamiento";
-        if(tratamiento.fecha !== null){
+        if(tratamientoCita.fecha !== null){
             tratamientoEndpoint = "agregarTratamientoCita"
         }
         dispatch(loading());
@@ -40,14 +41,28 @@ export function postTratamiento(tratamiento, atencionId) {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(tratamiento)
+                    body: JSON.stringify(tratamientoCita)
                 }
             );
-            const savedAM = await response.text();
-            dispatch(success({redirect: `/`}));
+            const savedAM = await response.json();
+            console.log(savedAM);
+            let finAtencion = savedAM.tratamiento.estado === "DADO_DE_ALTA" ?
+                                "DADO_DE_ALTA" : 
+                                (savedAM.tratamiento.estado === "INGRESADO_HOSPITAL" ?
+                                 "INGRESADO_HOSPITAL" :
+                                  null);
+            dispatch(success({redirect: `/` , finAtencion }));
         } catch (error) {
             console.log(error)
             dispatch(failure());
         }
     }
+}
+
+export function resetFinAtencion() {
+    return (dispatch) => {
+        dispatch({
+            type: RESET_FIN_ATENCION,
+        });
+    };
 }

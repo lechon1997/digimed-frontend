@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { limpiarRedirectTratamiento, postTratamiento } from "../actions/tratamientoActions";
+import { limpiarRedirectTratamiento, postTratamiento, resetFinAtencion } from "../actions/tratamientoActions";
 import { CSSTransition } from 'react-transition-group';
 import '../asset/style/transsitions.css'
 import { Form } from "react-bootstrap";
@@ -17,7 +17,7 @@ import { Form } from "react-bootstrap";
 const TratamientoForm = () => {
 
     let pathParams = useParams();
-    const redirect = useSelector((state) => state.tratamiento.redirect);
+    const {redirect, finAtencion, hasErrors } = useSelector((state) => state.tratamiento);
     const navigate = useNavigate();
     const {register, handleSubmit, formState: { errors }, watch, setValue, getValues} = useForm();
     const [showCitaCheck, setshowCitaCheck] = useState(false);
@@ -79,13 +79,6 @@ const TratamientoForm = () => {
               })
               return;
         }
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Atención terminada',
-            showConfirmButton: false,
-            timer: 2000
-          })
         dispatch(postTratamiento(tratamientoCita, pathParams.idatencion));
     }
 
@@ -97,7 +90,40 @@ const TratamientoForm = () => {
         return () => {
           dispatch(limpiarRedirectTratamiento());
         }
-      }, [redirect])
+    }, [redirect])
+
+    useEffect(() => {
+        if(finAtencion === "INGRESADO_HOSPITAL" && !hasErrors){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Atención terminada.\nNotifique al personal de enfermeria.',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }else if(finAtencion === "DADO_DE_ALTA" && !hasErrors){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Atención terminada',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+        if(hasErrors){
+            Swal.fire({
+                // position: 'top-end',
+                icon: 'error',
+                title: 'No se puede terminar la cita correctamente.\nIntente de nuevamente y si falla contacte a soporte.',
+                showConfirmButton: true,
+                // timer: 1500
+            })
+        }
+        return () => {
+            dispatch(resetFinAtencion())
+        }
+    }, [finAtencion, hasErrors])
+    
 
     const cancelHandler = () => {
 
