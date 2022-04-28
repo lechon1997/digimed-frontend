@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate,useParams } from 'react-router-dom';
-import {agregarDiagnostico, limpiarRedirectDiagnostico} from '../actions/diagnosticoActions'
+import { useNavigate, useParams } from 'react-router-dom';
+import { agregarDiagnostico, limpiarRedirectDiagnostico } from '../actions/diagnosticoActions'
 
 const FormDiagnostico = () => {
     const redirect = useSelector((state) => state.diagnostico.redirect);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
-    const {id} = useParams();
+
+    const { id } = useParams();
 
     useEffect(() => {
         if (redirect) { navigate(redirect) }
@@ -37,7 +37,7 @@ const FormDiagnostico = () => {
         }
         console.log('mi codigo siempre ta raro');
         dispatch(agregarDiagnostico({
-            resultados,idPaciente:id
+            resultados, idPaciente: id
         }))
 
     }
@@ -46,21 +46,19 @@ const FormDiagnostico = () => {
         <div className="login shadow d-flex flex-column align-items-center w-100">
 
             <form
-                className="d-flex flex-column align-items-center "onSubmit={submitHandler}
+                className="d-flex flex-column align-items-center " onSubmit={submitHandler}
             ><label className="mb-4">Diagnostico</label>
-
-                <input
-                    type="resultados"
+                <textarea
                     name="resultados"
-                    className="input-lindo mb-4"
-                    placeholder="Ingrese resultados"
-                    id="exampleInputResultados1"
-                    aria-describedby="ResultadosHelp"
-                />
+                    className="form-control w-100"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                ></textarea>
+                <hr />
                 <button type="submit" className="btn-ingresar"  >
                     Enviar
                 </button>
-                <button type="submit" className=" mt-2 btn-ingresar" onClick={cancelHandler}>
+                <button type="submit" className=" mt-1 btn-ingresar" onClick={cancelHandler}>
                     cancelar
                 </button>
             </form>

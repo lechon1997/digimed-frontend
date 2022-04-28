@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { limpiarRedirectDiagnostico } from "../actions/diagnosticoActions";
+import { limpiarRedirectDiagnostico, } from "../actions/diagnosticoActions";
 import { limpiarRedirectTratamiento, postTratamiento, resetFinAtencion } from "../actions/tratamientoActions";
 import { CSSTransition } from 'react-transition-group';
 import '../asset/style/transsitions.css'
 import { Form } from "react-bootstrap";
+import { Spinner } from "reactstrap";
 
 /**
  * Formulario para registrar los tratamientos.
@@ -18,7 +19,7 @@ import { Form } from "react-bootstrap";
 const TratamientoForm = () => {
 
     let pathParams = useParams();
-    const {redirect, finAtencion, hasErrors } = useSelector((state) => state.tratamiento);
+    const {redirect, finAtencion, hasErrors, loading } = useSelector((state) => state.tratamiento);
     const navigate = useNavigate();
     const {register, handleSubmit, formState: { errors }, watch, setValue, getValues} = useForm();
     const [showCitaCheck, setshowCitaCheck] = useState(false);
@@ -162,9 +163,17 @@ const TratamientoForm = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="d-flex flex-column align-items-center"
             >
+                {
+                    loading &&
+                    <Spinner 
+                        style={{ width: '2rem', height: '2rem' }}
+                        children={false}
+                    />
+                }
                 <label htmlFor="procedimiento-text" className="form-label">Tratamiento</label>
                 <textarea
                     {...register("procedimiento", { required: true,})}
+                    className="textAreaBonita"
                     id="procedimiento-text"
                     placeholder="Ingrese el proceder del tratamiento..."
                     rows="6"
@@ -228,17 +237,14 @@ const TratamientoForm = () => {
                                 />
                                 {validateDatetime && <p style={{color: "red", fontSize: "12px"}} id="validar-fecha">"Debe seleccionar una fecha"</p>}
                                 {validateDateContent && <p style={{color: "red", fontSize: "12px"}} id="validar-fecha-posterior">"La fecha debe ser posterior a la actual"</p>}
-                                {/* <button id="adicionar-cita" className="btn-cita " onClick={handleCita}>
-                                    Programar cita
-                                </button> */}
                             </div>
                 </CSSTransition>
-                <button id="enviar-tratamiento" type="submit" className="btn-fin-atencion mt-5">
+                <button id="enviar-tratamiento" type="submit" className="btn-fin-atencion mt-5" disabled={loading}>
                     Fin Atención
                 </button>
             </form>
             <div className="d-flex flex-column align-items-center mt-3">
-                <button id="cancelar-tratamiento" className="btn-cancelar-atencion" onClick={cancelHandler}>
+                <button id="cancelar-tratamiento" className="btn-cancelar-atencion" onClick={cancelHandler} disabled={loading}>
                     Cancelar
                 </button>
             </div>

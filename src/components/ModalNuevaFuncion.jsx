@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {agregarFuncion} from '../actions/funcionActions'
+import { agregarFuncion } from '../actions/funcionActions'
 
 const ModalNuevaFuncion = () => {
 
-    const dispatch= useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const submitHandler = (e) => {
@@ -29,9 +29,9 @@ const ModalNuevaFuncion = () => {
             window.alert("Solo debe haber letras en el campo descripcion");
             return false;
         }
-        dispatch(agregarFuncion({nombre,descripcion}));
-        e.target.nombre.value='';
-        e.target.descripcion.value='';
+        dispatch(agregarFuncion({ nombre, descripcion }));
+        e.target.nombre.value = '';
+        e.target.descripcion.value = '';
         window.alert("Funcion agregada exitosamente")
     }
     const mostrarHandler = (e) => {
@@ -39,6 +39,7 @@ const ModalNuevaFuncion = () => {
     }
     return (
         <div className="d-flex flex-column align-items-center">
+          <p style={{color: "black", fontSize: "30px"}} id="nuevaFuncion">Ingresa nueva funcion</p>
             <div className="login shadow ">
                 <form
                     onSubmit={submitHandler}
@@ -47,26 +48,25 @@ const ModalNuevaFuncion = () => {
                     <input
                         type="text"
                         name="nombre"
-                        className="input-lindo mb-4"
+                        className="input-lindo mb-3"
                         placeholder="Ingrese nombre"
                         id="textNombre"
                         aria-describedby="nombreHelp"
                     />
-                    <input
-                        type="text"
+                    <textarea
                         name="descripcion"
-                        className="input-lindo mb-4"
-                        placeholder="Ingrese descripcion"
-                        id="textDescripcion"
-                        aria-describedby="descripcionHelp"
-                    />
-                    <button type="submit" className="btn-ingresar" onSubmit={submitHandler}>
+                        className="form-control w-100"
+                        placeholder='Ingrese descripcion'
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                    ></textarea>
+                    <button type="submit" className="btn-ingresar mt-2" onSubmit={submitHandler}>
                         Agregar
                     </button>
 
                 </form>
                 <div className="d-flex flex-column align-items-center">
-                    <button type="text" className="btn-ingresar  mt-3 " onClick={mostrarHandler}>
+                    <button type="text" className="btn-ingresar  mt-3 "  onClick={mostrarHandler}>
                         Ver Funciones
                     </button>
                 </div>
