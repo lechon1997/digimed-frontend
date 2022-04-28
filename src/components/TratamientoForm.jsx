@@ -165,6 +165,7 @@ const TratamientoForm = () => {
                 <label htmlFor="procedimiento-text" className="form-label">Tratamiento</label>
                 <textarea
                     {...register("procedimiento", { required: true,})}
+                    className="textAreaBonita"
                     id="procedimiento-text"
                     placeholder="Ingrese el proceder del tratamiento..."
                     rows="6"

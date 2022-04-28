@@ -5,7 +5,7 @@ import VerFuncionesPage from "./VerFuncionesPage";
 
 
 const ListaDeFuncionesPage = () => {
-  return <div>Ingrese nueva funcion
+  return <div>
     <ModalNuevaFuncion />
   </div>;
 };

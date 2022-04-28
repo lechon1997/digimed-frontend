@@ -1,5 +1,5 @@
-const URL_BASE = 'http://localhost:8080'
-// const URL_BASE = 'https://app-digimed.herokuapp.com'
+//const URL_BASE = 'http://localhost:8080'
+ const URL_BASE = 'https://app-digimed.herokuapp.com'
 
 export const LOADING_TRATAMIENTO = 'LOADING_TRATAMIENTO'
 export const LOADED_SUCCESS_TRATAMIENTO = 'LOADED_SUCCESS_TRATAMIENTO'
