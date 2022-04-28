@@ -33,13 +33,13 @@ const ModalNuevoMiembro = ({
     dispatch(AlertNombre({ value: "", isOpen: false }));
     dispatch(OcultarModalNuevoMiembro());
   };
-  console.log(validForm);
-  const onSubmit = (e) => {
+
+  const onSubmitxd = (e) => {
     e.preventDefault();
     const nombre = e.target.name.value;
     const email = e.target.email.value;
     const isActive = e.target.estado.checked;
-
+    console.log("hola xdd");
     if (nombre.length === 0) {
       dispatch(
         FormularioValido({
@@ -61,7 +61,9 @@ const ModalNuevoMiembro = ({
           showAlert: false,
         })
       );
-      //dispatch(fetchNuevoEnfermero({ nombre, email, active: isActive }));
+      console.log("hola");
+      dispatch(fetchNuevoEnfermero({ nombre, email, active: isActive }));
+      ocultar_modal();
     }
   };
 
@@ -91,7 +93,7 @@ const ModalNuevoMiembro = ({
         </div>
       </ModalHeader>
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitxd}>
         <ModalBody>
           <FormGroup>
             <label>Nombre:</label>
@@ -142,7 +144,7 @@ const ModalNuevoMiembro = ({
             Cancelar
           </Button>
 
-          <Button color="primary" id="btn-nuevo-miembro">
+          <Button type="submit" color="primary" id="btn-nuevo-miembro">
             Confirmar
           </Button>
         </ModalFooter>

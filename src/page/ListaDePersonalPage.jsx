@@ -7,7 +7,7 @@ import BtnNuevoPersonal from "../components/BtnNuevoPersonal";
 
 const ListaDePersonalPage = ({ dispatch }) => {
   dispatch(CargarPersonal());
-
+  console.log("xdd");
   return (
     <div className="lista-de-personal-page-contenedor">
       <div className="w-100 d-flex justify-content-end">
