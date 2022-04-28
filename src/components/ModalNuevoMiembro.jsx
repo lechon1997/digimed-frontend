@@ -6,6 +6,13 @@ import { fetchNuevoEnfermero } from "../actions/personalActions";
 import { AlertNombre } from "../actions/personalActions";
 import { AlertEmail } from "../actions/personalActions";
 import { FormularioValido } from "../actions/personalActions";
+import {
+  nombreVacioAction,
+  emailVacioAction,
+  alertEmailAction,
+  nombreCorrectoAction,
+  limpiarAlertasAction,
+} from "../actions/personalActions";
 
 import {
   Button,
@@ -18,34 +25,24 @@ import {
 } from "reactstrap";
 
 const ModalNuevoMiembro = ({
+  alertaEmail,
+  nombreVacio,
+  emailVacio,
+  nombreCorrecto,
   isOpen,
   alertNombre,
-  alertaEmail,
   validForm,
   personal,
   dispatch,
 }) => {
-  const [emailState, setEmail] = useState(false);
-  const [nombreValidoState, setNombreValidoState] = useState(false);
-  const [nombreVacio, setNombreVacio] = useState(false);
-  const [emailVacio, setEmailVacio] = useState(false);
-
   const ocultar_modal = () => {
-    dispatch(
-      FormularioValido({
-        value: "",
-        showAlert: false,
-      })
-    );
-    setNombreVacio(false);
-    setEmail(false);
-    setNombreValidoState(false);
-    setEmailVacio(false);
+    dispatch(limpiarAlertasAction());
     dispatch(OcultarModalNuevoMiembro());
   };
 
   const onSubmitxd = (e) => {
     e.preventDefault();
+
     const formatoNombre = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
 
     const nombre = e.target.name.value;
@@ -53,65 +50,25 @@ const ModalNuevoMiembro = ({
     const isActive = e.target.estado.checked;
 
     if (
-      !personal.filter((p) => p.email === email)[0] &&
       nombre.match(formatoNombre) &&
       nombre.length !== 0 &&
       email.length !== 0
     ) {
       dispatch(fetchNuevoEnfermero({ nombre, email, active: isActive }));
-      ocultar_modal();
     } else {
       console.log("a pedazos...");
-      if (personal.filter((p) => p.email === email)[0]) {
-        setEmail(true);
-      } else {
-        setEmail(false);
-      }
 
       if (nombre.length === 0) {
-        setNombreVacio(true);
+        dispatch(nombreVacioAction(true));
       } else {
-        setNombreVacio(false);
+        dispatch(nombreVacioAction(false));
       }
 
       if (email.length === 0) {
-        setEmailVacio(true);
+        dispatch(emailVacioAction(true));
       } else {
-        setEmailVacio(false);
+        dispatch(emailVacioAction(false));
       }
-    }
-
-    {
-      /**
-       * if (!emailState && !nombreValidoState && !nombreVacio && !emailVacio) {
-      console.log("xdd xD");
-    }
-
-    if (email.length === 0) {
-      dispatch(
-        FormularioValido({
-          value: "Email no puede ser vacío",
-          showAlert: true,
-        })
-      );
-    } else if (
-      alertNombre.isOpen ||
-      alertaEmail.isOpen ||
-      validForm.showAlert ||
-      emailState
-    ) {
-      return false;
-    } else {
-      dispatch(
-        FormularioValido({
-          value: "",
-          showAlert: false,
-        })
-      );
-      dispatch(fetchNuevoEnfermero({ nombre, email, active: isActive }));
-      ocultar_modal();
-    }
-     */
     }
   };
 
@@ -120,26 +77,13 @@ const ModalNuevoMiembro = ({
     const formatoNombre = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
 
     if (!nombre.match(formatoNombre)) {
-      //dispatch(AlertNombre({ value: "el nombre no es válido", isOpen: true }));
-      setNombreValidoState(true);
+      dispatch(nombreCorrectoAction(true));
     } else {
-      setNombreValidoState(false);
+      dispatch(nombreCorrectoAction(false));
     }
 
     if (nombre.length === 0) {
-      setNombreValidoState(false);
-    }
-
-    {
-      /**
-    if (nombre.length === 0) {
-      dispatch(AlertNombre({ value: "", isOpen: false }));
-    }
-
-    if (nombre.match(formatoNombre) && alertNombre.isOpen) {
-      dispatch(AlertNombre({ value: "", isOpen: false }));
-    }
-     */
+      dispatch(nombreCorrectoAction(false));
     }
   };
 
@@ -163,7 +107,7 @@ const ModalNuevoMiembro = ({
               onChange={onChangeNombre}
             />
           </FormGroup>
-          <Alert isOpen={nombreValidoState} color="danger">
+          <Alert isOpen={nombreCorrecto} color="danger">
             El nombre no es válido
           </Alert>
           <Alert isOpen={nombreVacio} color="danger">
@@ -178,7 +122,7 @@ const ModalNuevoMiembro = ({
               type="email"
             />
           </FormGroup>
-          <Alert isOpen={emailState} color="danger">
+          <Alert isOpen={alertaEmail} color="danger">
             El email ingresado ya existe
           </Alert>
           <Alert isOpen={emailVacio} color="danger">
@@ -220,9 +164,12 @@ const ModalNuevoMiembro = ({
 const mapStateToProps = (state) => ({
   isOpen: state.personal.isOpenModalNuevoMiembro,
   alertNombre: state.personal.alertNombre,
-  alertaEmail: state.personal.alertEmail,
   validForm: state.personal.validForm,
   personal: state.personal.personal,
+  alertaEmail: state.personal.alertEmail,
+  nombreVacio: state.personal.nombreVacio,
+  emailVacio: state.personal.emailVacio,
+  nombreCorrecto: state.personal.nombreCorrecto,
 });
 
 export default connect(mapStateToProps)(ModalNuevoMiembro);

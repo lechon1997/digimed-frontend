@@ -1,13 +1,14 @@
 import * as actions from "../actions/personalActions";
 
 export const initialState = {
+  nombreVacio: false,
+  nombreCorrecto: false,
+  emailVacio: false,
+  alertEmail: false,
+
   personal: [],
   isOpenModalNuevoMiembro: false,
   alertNombre: {
-    value: "",
-    isOpen: false,
-  },
-  alertEmail: {
     value: "",
     isOpen: false,
   },
@@ -19,6 +20,38 @@ export const initialState = {
 
 export default function personalReducer(state = initialState, action) {
   switch (action.type) {
+    case actions.LIMPIAR_ALERTAS:
+      return {
+        ...state,
+        nombreVacio: false,
+        nombreCorrecto: false,
+        emailVacio: false,
+        alertEmail: false,
+      };
+    case actions.NOMBRE_VACIO:
+      return {
+        ...state,
+        nombreVacio: action.payload,
+      };
+
+    case actions.EMAIL_VACIO:
+      return {
+        ...state,
+        emailVacio: action.payload,
+      };
+
+    case actions.NOMBRE_CORRECTO:
+      return {
+        ...state,
+        nombreCorrecto: action.payload,
+      };
+
+    case actions.ALERT_EMAIL:
+      return {
+        ...state,
+        alertEmail: action.payload,
+      };
+
     case actions.CARGAR_PERSONAL:
       return {
         ...state,
@@ -34,14 +67,6 @@ export default function personalReducer(state = initialState, action) {
       return {
         ...state,
         alertNombre: {
-          value: action.payload.value,
-          isOpen: action.payload.isOpen,
-        },
-      };
-    case actions.ALERT_EMAIL:
-      return {
-        ...state,
-        alertEmail: {
           value: action.payload.value,
           isOpen: action.payload.isOpen,
         },
