@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import NuevoPacientePage from "./NuevoPacientePage";
 import ListaDeFuncionesPage from "./ListaDeFuncionesPage";
 import ListaDePersonalPage from "./ListaDePersonalPage";
@@ -7,20 +7,17 @@ import VerificarDniPage from "./VerificarDniPage";
 import Menu from "../components/Menu";
 import SintomasPage from "./SintomasPage";
 import DiagnosticoPage from "./DiagnosticoPage";
-import { useSelector } from "react-redux";
-import * as actions from "../actions/verifyActions";
 import TratamientoForm from "../components/TratamientoForm";
 import VerFuncionesPage from "./VerFuncionesPage";
-import ListaDeFunciones from "../components/ListaDeFunciones";
 import DelegarTareasPage from "./DelegarTareasPage";
 import ModalNuevaFuncion from "../components/ModalNuevaFuncion";
 
 const HomePage = () => {
-  const url = "https://forms.gle/sZPy5oci54wUviU79";
-  const urlChanger = (e) => {
-    e.preventDefault();
-    window.location.assign(url);
-  };
+  // const url = "https://forms.gle/sZPy5oci54wUviU79";
+  // const urlChanger = (e) => {
+  //   e.preventDefault();
+  //   window.location.assign(url);
+  // };
 
   return (
     <div className="menu-home w-100">
