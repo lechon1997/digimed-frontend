@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { OcultarModalNuevoMiembro } from "../actions/personalActions";
 import { fetchNuevoEnfermero } from "../actions/personalActions";
 import { AlertNombre } from "../actions/personalActions";
+import { AlertEmail } from "../actions/personalActions";
 import { FormularioValido } from "../actions/personalActions";
 
 import {
@@ -19,10 +20,16 @@ import {
 const ModalNuevoMiembro = ({
   isOpen,
   alertNombre,
-  alertEmail,
+  alertaEmail,
   validForm,
+  personal,
   dispatch,
 }) => {
+  const [emailState, setEmail] = useState(false);
+  const [nombreValidoState, setNombreValidoState] = useState(false);
+  const [nombreVacio, setNombreVacio] = useState(false);
+  const [emailVacio, setEmailVacio] = useState(false);
+
   const ocultar_modal = () => {
     dispatch(
       FormularioValido({
@@ -30,30 +37,70 @@ const ModalNuevoMiembro = ({
         showAlert: false,
       })
     );
-    dispatch(AlertNombre({ value: "", isOpen: false }));
+    setNombreVacio(false);
+    setEmail(false);
+    setNombreValidoState(false);
+    setEmailVacio(false);
     dispatch(OcultarModalNuevoMiembro());
   };
 
   const onSubmitxd = (e) => {
     e.preventDefault();
+    const formatoNombre = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
+
     const nombre = e.target.name.value;
     const email = e.target.email.value;
     const isActive = e.target.estado.checked;
-    console.log("hola xdd");
-    if (nombre.length === 0) {
-      dispatch(
-        FormularioValido({
-          value: "Nombre no puede ser vacío",
-          showAlert: true,
-        })
-      );
-    } else if (email.length === 0) {
+
+    if (
+      !personal.filter((p) => p.email === email)[0] &&
+      nombre.match(formatoNombre) &&
+      nombre.length !== 0 &&
+      email.length !== 0
+    ) {
+      dispatch(fetchNuevoEnfermero({ nombre, email, active: isActive }));
+      ocultar_modal();
+    } else {
+      console.log("a pedazos...");
+      if (personal.filter((p) => p.email === email)[0]) {
+        setEmail(true);
+      } else {
+        setEmail(false);
+      }
+
+      if (nombre.length === 0) {
+        setNombreVacio(true);
+      } else {
+        setNombreVacio(false);
+      }
+
+      if (email.length === 0) {
+        setEmailVacio(true);
+      } else {
+        setEmailVacio(false);
+      }
+    }
+
+    {
+      /**
+       * if (!emailState && !nombreValidoState && !nombreVacio && !emailVacio) {
+      console.log("xdd xD");
+    }
+
+    if (email.length === 0) {
       dispatch(
         FormularioValido({
           value: "Email no puede ser vacío",
           showAlert: true,
         })
       );
+    } else if (
+      alertNombre.isOpen ||
+      alertaEmail.isOpen ||
+      validForm.showAlert ||
+      emailState
+    ) {
+      return false;
     } else {
       dispatch(
         FormularioValido({
@@ -61,21 +108,30 @@ const ModalNuevoMiembro = ({
           showAlert: false,
         })
       );
-      console.log("hola");
       dispatch(fetchNuevoEnfermero({ nombre, email, active: isActive }));
       ocultar_modal();
+    }
+     */
     }
   };
 
   const onChangeNombre = (e) => {
     const nombre = e.target.value;
-    console.log(nombre);
     const formatoNombre = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
 
     if (!nombre.match(formatoNombre)) {
-      dispatch(AlertNombre({ value: "el nombre no es válido", isOpen: true }));
+      //dispatch(AlertNombre({ value: "el nombre no es válido", isOpen: true }));
+      setNombreValidoState(true);
+    } else {
+      setNombreValidoState(false);
     }
 
+    if (nombre.length === 0) {
+      setNombreValidoState(false);
+    }
+
+    {
+      /**
     if (nombre.length === 0) {
       dispatch(AlertNombre({ value: "", isOpen: false }));
     }
@@ -83,13 +139,15 @@ const ModalNuevoMiembro = ({
     if (nombre.match(formatoNombre) && alertNombre.isOpen) {
       dispatch(AlertNombre({ value: "", isOpen: false }));
     }
+     */
+    }
   };
 
   return (
     <Modal className="mt-3" isOpen={isOpen}>
       <ModalHeader>
         <div>
-          <h3>Ingresar nuevo enfermero</h3>
+          <h3>Ingresar enfermera</h3>
         </div>
       </ModalHeader>
 
@@ -105,8 +163,11 @@ const ModalNuevoMiembro = ({
               onChange={onChangeNombre}
             />
           </FormGroup>
-          <Alert isOpen={alertNombre.isOpen} color="danger">
-            {alertNombre.value}
+          <Alert isOpen={nombreValidoState} color="danger">
+            El nombre no es válido
+          </Alert>
+          <Alert isOpen={nombreVacio} color="danger">
+            Campo nombre incompleto
           </Alert>
           <FormGroup>
             <label>Email:</label>
@@ -117,8 +178,11 @@ const ModalNuevoMiembro = ({
               type="email"
             />
           </FormGroup>
-          <Alert isOpen={alertEmail.isOpen} color="danger">
-            {alertEmail.value}
+          <Alert isOpen={emailState} color="danger">
+            El email ingresado ya existe
+          </Alert>
+          <Alert isOpen={emailVacio} color="danger">
+            Campo email incompleto
           </Alert>
           <FormGroup>
             <label>Activo:</label>
@@ -156,8 +220,9 @@ const ModalNuevoMiembro = ({
 const mapStateToProps = (state) => ({
   isOpen: state.personal.isOpenModalNuevoMiembro,
   alertNombre: state.personal.alertNombre,
-  alertEmail: state.personal.alertEmail,
+  alertaEmail: state.personal.alertEmail,
   validForm: state.personal.validForm,
+  personal: state.personal.personal,
 });
 
 export default connect(mapStateToProps)(ModalNuevoMiembro);

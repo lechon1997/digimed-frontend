@@ -6,6 +6,7 @@ export const ALERT_EMAIL = "ALERT_EMAIL";
 export const NUEVO_ENFERMERO = "NUEVO_ENFERMERO";
 export const VALID_FORM = "VALID_FORM";
 export const ACTUALIZAR_ENFERMERO = "ACTUALIZAR_ENFERMERO";
+//export const VERIFICAR_CORREO_REPETIDO = "VERIFICAR_CORREO_REPETIDO";
 
 const URL_BASE = "https://app-digimed.herokuapp.com/api";
 
