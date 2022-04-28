@@ -5,15 +5,38 @@ import {
   siguienteSeleccionFuncion,
   volverSeleccionarEnfermera,
   volverEditarFuncion,
+  fetchEnviarNotificacionEnfermera,
 } from "../actions/delegarTareasActions";
 
 const FooterFormDelegar = ({
   seleccionarFuncion,
   editarFuncion,
   seleccionarEnfermera,
+  enfermeraSeleccionada,
+  funcionSeleccionada,
   dispatch,
 }) => {
+  console.log(funcionSeleccionada);
+
+  const finalizar = () => {
+    dispatch(
+      fetchEnviarNotificacionEnfermera({
+        enfermero: enfermeraSeleccionada.enfermera,
+        funcion: funcionSeleccionada.funcion,
+        pacienteDNI: "9898989898",
+      })
+    );
+  };
+
+  const guardarCambiosFuncion = () => {
+    console.log("gurdando cambios...");
+  };
+
   const siguiente = () => {
+    if (editarFuncion) {
+      guardarCambiosFuncion();
+    }
+
     if (!editarFuncion) {
       dispatch(siguienteSeleccionFuncion());
     } else {
@@ -37,7 +60,8 @@ const FooterFormDelegar = ({
         <button
           id="btn-finalizar"
           className="btn btn-success"
-          onClick={siguiente}
+          onClick={finalizar}
+          disabled={!enfermeraSeleccionada.seleccionada ? true : false}
         >
           Finalizar
         </button>
@@ -46,8 +70,9 @@ const FooterFormDelegar = ({
           id="btn-siguiente"
           className="btn btn-primary"
           onClick={siguiente}
+          disabled={!funcionSeleccionada.seleccionada ? true : false}
         >
-          Siguiente
+          {editarFuncion ? "guardar y continuar" : "continuar"}
         </button>
       )}
     </div>
@@ -58,6 +83,8 @@ const mapStateToProps = (state) => ({
   seleccionarFuncion: state.delegarTareas.seleccionarFuncion,
   editarFuncion: state.delegarTareas.editarFuncion,
   seleccionarEnfermera: state.delegarTareas.seleccionarEnfermera,
+  funcionSeleccionada: state.delegarTareas.funcionSeleccionada,
+  enfermeraSeleccionada: state.delegarTareas.enfermeraSeleccionada,
 });
 
 export default connect(mapStateToProps)(FooterFormDelegar);

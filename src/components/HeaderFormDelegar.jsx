@@ -10,14 +10,16 @@ const HeaderFormDelegar = ({
     <div className="header-form-delegar-tarea d-flex">
       <div
         className={`item-header-form-delegar bg-primary text-white ${
-          editarFuncion ? "" : "radius-header-delegar-tareas"
+          !editarFuncion && !seleccionarEnfermera
+            ? "radius-header-delegar-tareas"
+            : ""
         }`}
       >
         <label>Seleccionar funcion</label>
       </div>
       <div
         className={`item-header-form-delegar ${
-          editarFuncion ? "bg-primary text-white" : ""
+          editarFuncion || seleccionarEnfermera ? "bg-primary text-white" : ""
         } ${
           editarFuncion && !seleccionarEnfermera
             ? "radius-header-delegar-tareas"

@@ -5,6 +5,17 @@ export const initialState = {
   editarFuncion: false,
   seleccionarEnfermera: false,
   funciones: [],
+  enfermeras: [],
+  funcionSeleccionada: {
+    funcion: null,
+    seleccionada: false,
+  },
+  enfermeraSeleccionada: {
+    enfermera: null,
+    seleccionada: false,
+  },
+  nombreFuncionCache: "",
+  descripcionFuncionCache: "",
 };
 
 export default function delegarTareasReducer(state = initialState, action) {
@@ -12,31 +23,77 @@ export default function delegarTareasReducer(state = initialState, action) {
     case actions.SIGUIENTE_SELECCIONAR_FUNCION:
       return {
         ...state,
-        editarFuncion: action.payload,
+        seleccionarFuncion: false,
+        editarFuncion: true,
+        seleccionarEnfermera: false,
       };
 
     case actions.SIGUIENTE_EDITAR_FUNCION:
       return {
         ...state,
-        seleccionarEnfermera: action.payload,
+        seleccionarFuncion: false,
+        editarFuncion: false,
+        seleccionarEnfermera: true,
       };
 
     case actions.VOLVER_EDITAR_FUNCION:
       return {
         ...state,
-        editarFuncion: action.payload,
+        seleccionarFuncion: true,
+        editarFuncion: false,
+        seleccionarEnfermera: false,
       };
 
     case actions.VOLVER_SELECCIONAR_ENFERMERA:
       return {
         ...state,
-        seleccionarEnfermera: action.payload,
+        seleccionarEnfermera: false,
+        seleccionarFuncion: false,
+        editarFuncion: true,
       };
 
     case actions.CARGAR_FUNCIONES:
       return {
         ...state,
         funciones: action.payload,
+      };
+
+    case actions.SELECCIONAR_FUNCION:
+      return {
+        ...state,
+        funcionSeleccionada: {
+          funcion: action.payload,
+          seleccionada: true,
+        },
+        nombreFuncionCache: action.payload.nombre,
+        descripcionFuncionCache: action.payload.descripcion,
+      };
+
+    case actions.SELECCIONAR_ENFERMERA:
+      return {
+        ...state,
+        enfermeraSeleccionada: {
+          enfermera: action.payload,
+          seleccionada: true,
+        },
+      };
+
+    case actions.EDITAR_NOMBRE_FUNCION:
+      return {
+        ...state,
+        nombreFuncionCache: action.payload,
+      };
+
+    case actions.EDITAR_DESCRIPCION_FUNCION:
+      return {
+        ...state,
+        descripcionFuncionCache: action.payload,
+      };
+
+    case actions.CARGAR_ENFERMERAS:
+      return {
+        ...state,
+        enfermeras: action.payload,
       };
 
     default:

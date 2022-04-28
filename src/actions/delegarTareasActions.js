@@ -5,6 +5,12 @@ export const SIGUIENTE_EDITAR_FUNCION = "SIGUIENTE_EDITAR_FUNCION";
 export const VOLVER_EDITAR_FUNCION = "VOLVER_EDITAR_FUNCION";
 export const VOLVER_SELECCIONAR_ENFERMERA = "VOLVER_SELECCIONAR_ENFERMERA";
 export const CARGAR_FUNCIONES = "CARGAR_FUNCIONES";
+export const CARGAR_ENFERMERAS = "CARGAR_ENFERMERAS";
+export const SELECCIONAR_FUNCION = "SELECCIONAR_FUNCION";
+export const SELECCIONAR_ENFERMERA = "SELECCIONAR_ENFERMERA";
+export const EDITAR_NOMBRE_FUNCION = "EDITAR_NOMBRE_FUNCION";
+export const EDITAR_DESCRIPCION_FUNCION = "EDITAR_DESCRIPCION_FUNCION";
+export const ENVIAR_NOTIFICACION_ENFERMERA = "ENVIAR_NOTIFICACION_ENFERMERA";
 
 export function siguienteSeleccionFuncion() {
   return (dispatch) => {
@@ -30,6 +36,18 @@ export function volverSeleccionarEnfermera() {
   };
 }
 
+export function seleccionarFuncion(funcion) {
+  return (dispatch) => {
+    dispatch({ type: SELECCIONAR_FUNCION, payload: funcion });
+  };
+}
+
+export function seleccionarEnfermera(enfermera) {
+  return (dispatch) => {
+    dispatch({ type: SELECCIONAR_ENFERMERA, payload: enfermera });
+  };
+}
+
 export function fetchFunciones() {
   return async (dispatch) => {
     try {
@@ -39,5 +57,54 @@ export function fetchFunciones() {
     } catch (error) {
       console.log(error);
     }
+  };
+}
+
+export function fetchEnfermeras() {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${URL_BASE}/enfermero`);
+      const data = await response.json();
+      dispatch({ type: CARGAR_ENFERMERAS, payload: data });
+    } catch (errores) {
+      console.log(errores);
+    }
+  };
+}
+
+export function fetchEnviarNotificacionEnfermera(data) {
+  console.log(data);
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${URL_BASE}/enfermero/notificationemail`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          enfermeroId: data.enfermero.id,
+          funcion: data.funcion,
+          pacienteDNI: data.pacienteDNI,
+        }),
+      });
+      const res = await response.json();
+      console.log(res);
+      //dispatch({ type: ENVIAR_NOTIFICACION_ENFERMERA });
+    } catch (errores) {
+      console.log(errores);
+    }
+  };
+}
+
+export function editarNombreFuncion(nombre) {
+  return (dispatch) => {
+    dispatch({ type: EDITAR_NOMBRE_FUNCION, payload: nombre });
+  };
+}
+
+export function editarDescripcionFuncion(descripcion) {
+  return (dispatch) => {
+    dispatch({ type: EDITAR_DESCRIPCION_FUNCION, payload: descripcion });
   };
 }
