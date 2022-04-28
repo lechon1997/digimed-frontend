@@ -14,6 +14,15 @@ export const ENVIAR_NOTIFICACION_ENFERMERA = "ENVIAR_NOTIFICACION_ENFERMERA";
 export const ACTUALIZAR_FUNCION = "ACTUALIZAR_FUNCION";
 export const LIMPIAR_STORE_DELEGAR = "LIMPIAR_STORE_DELEGAR";
 export const ALERTA_NOMBRE = "ALERTA_NOMBRE";
+export const CARGAR_PACIENTE = "CARGAR_PACIENTE";
+
+export function cargarPaciente(id) {
+  return async (dispatch) => {
+    const response = await fetch(`${URL_BASE}/paciente/search/${id}`);
+    const res = await response.json();
+    dispatch({ type: CARGAR_PACIENTE, payload: res });
+  };
+}
 
 export function siguienteSeleccionFuncion() {
   return (dispatch) => {

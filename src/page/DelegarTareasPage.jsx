@@ -4,13 +4,19 @@ import { connect } from "react-redux";
 import HeaderFormDelegar from "../components/HeaderFormDelegar";
 import ContenedorFormDelegar from "../components/ContenedorFormDelegar";
 import FooterFormDelegar from "../components/FooterFormDelegar";
-import { fetchFunciones } from "../actions/delegarTareasActions";
-import { fetchEnfermeras } from "../actions/delegarTareasActions";
+import {
+  fetchFunciones,
+  fetchEnfermeras,
+  cargarPaciente,
+} from "../actions/delegarTareasActions";
 
 const DelegarTareasPage = ({ dispatch }) => {
   const { id } = useParams();
+
   dispatch(fetchFunciones());
   dispatch(fetchEnfermeras());
+  dispatch(cargarPaciente(id));
+
   return (
     <div className="contenedor-delegar-tareas d-flex justify-content-center">
       <div className="form-delegar-tarea d-flex flex-column">

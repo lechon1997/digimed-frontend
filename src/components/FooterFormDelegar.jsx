@@ -20,6 +20,7 @@ const FooterFormDelegar = ({
   nombreFuncionCache,
   descripcionFuncionCache,
   alertNombre,
+  paciente,
   dispatch,
 }) => {
   let { dni } = useParams();
@@ -38,7 +39,7 @@ const FooterFormDelegar = ({
         fetchEnviarNotificacionEnfermera({
           enfermero: enfermeraSeleccionada.enfermera,
           funcion: funcionSeleccionada.funcion,
-          pacienteDNI: dni,
+          pacienteDNI: paciente.dni,
         })
       );
       window.alert("se envió la notifiación al enfermero");
@@ -79,15 +80,23 @@ const FooterFormDelegar = ({
     }
   };
   return (
-    <div className=" d-flex justify-content-between pb-3 ps-3 pe-3">
-      <button
-        id="btn-volver"
-        className="btn btn-primary"
-        onClick={volver}
-        disabled={alertNombre.isOpen ? true : false}
-      >
-        Volver
-      </button>
+    <div
+      className={`d-flex ${
+        seleccionarFuncion ? "justify-content-end" : "justify-content-between"
+      } pb-3 ps-3 pe-3`}
+    >
+      {!seleccionarFuncion ? (
+        <button
+          id="btn-volver"
+          className="btn btn-primary"
+          onClick={volver}
+          disabled={alertNombre.isOpen ? true : false}
+        >
+          Volver
+        </button>
+      ) : (
+        ""
+      )}
       {seleccionarEnfermera ? (
         <button
           id="btn-finalizar"
@@ -124,6 +133,7 @@ const mapStateToProps = (state) => ({
   nombreFuncionCache: state.delegarTareas.nombreFuncionCache,
   descripcionFuncionCache: state.delegarTareas.descripcionFuncionCache,
   alertNombre: state.delegarTareas.alertaNombre,
+  paciente: state.delegarTareas.paciente,
 });
 
 export default connect(mapStateToProps)(FooterFormDelegar);

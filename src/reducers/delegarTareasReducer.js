@@ -1,6 +1,7 @@
 import * as actions from "../actions/delegarTareasActions";
 
 export const initialState = {
+  paciente: {},
   seleccionarFuncion: true,
   editarFuncion: false,
   seleccionarEnfermera: false,
@@ -125,7 +126,12 @@ export default function delegarTareasReducer(state = initialState, action) {
           isOpen: action.payload.isOpen,
         },
       };
-
+    case actions.CARGAR_PACIENTE: {
+      return {
+        ...state,
+        paciente: action.payload,
+      };
+    }
     case actions.LIMPIAR_STORE_DELEGAR:
       return initialState;
 
