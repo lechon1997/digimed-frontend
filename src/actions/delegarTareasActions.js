@@ -11,6 +11,9 @@ export const SELECCIONAR_ENFERMERA = "SELECCIONAR_ENFERMERA";
 export const EDITAR_NOMBRE_FUNCION = "EDITAR_NOMBRE_FUNCION";
 export const EDITAR_DESCRIPCION_FUNCION = "EDITAR_DESCRIPCION_FUNCION";
 export const ENVIAR_NOTIFICACION_ENFERMERA = "ENVIAR_NOTIFICACION_ENFERMERA";
+export const ACTUALIZAR_FUNCION = "ACTUALIZAR_FUNCION";
+export const LIMPIAR_STORE_DELEGAR = "LIMPIAR_STORE_DELEGAR";
+export const ALERTA_NOMBRE = "ALERTA_NOMBRE";
 
 export function siguienteSeleccionFuncion() {
   return (dispatch) => {
@@ -89,10 +92,29 @@ export function fetchEnviarNotificacionEnfermera(data) {
         }),
       });
       const res = await response.json();
-      console.log(res);
       //dispatch({ type: ENVIAR_NOTIFICACION_ENFERMERA });
     } catch (errores) {
       console.log(errores);
+    }
+  };
+}
+
+export function fetchActualizarFuncion(funcion) {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`${URL_BASE}/funcion`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(funcion),
+      });
+      const res = await response.json();
+      console.log("la nueva funcion: ", res);
+      dispatch({ type: ACTUALIZAR_FUNCION, payload: res });
+    } catch (e) {
+      console.log(e);
     }
   };
 }
@@ -106,5 +128,17 @@ export function editarNombreFuncion(nombre) {
 export function editarDescripcionFuncion(descripcion) {
   return (dispatch) => {
     dispatch({ type: EDITAR_DESCRIPCION_FUNCION, payload: descripcion });
+  };
+}
+
+export function limpiarEstadoStoreDelegar() {
+  return (dispatch) => {
+    dispatch({ type: LIMPIAR_STORE_DELEGAR });
+  };
+}
+
+export function alertaNombre(data) {
+  return (dispatch) => {
+    dispatch({ type: ALERTA_NOMBRE, payload: data });
   };
 }

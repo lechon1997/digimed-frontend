@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { connect } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   siguienteEditarFuncion,
   siguienteSeleccionFuncion,
   volverSeleccionarEnfermera,
   volverEditarFuncion,
   fetchEnviarNotificacionEnfermera,
+  fetchActualizarFuncion,
+  limpiarEstadoStoreDelegar,
 } from "../actions/delegarTareasActions";
 
 const FooterFormDelegar = ({
@@ -14,22 +17,46 @@ const FooterFormDelegar = ({
   seleccionarEnfermera,
   enfermeraSeleccionada,
   funcionSeleccionada,
+  nombreFuncionCache,
+  descripcionFuncionCache,
+  alertNombre,
   dispatch,
 }) => {
-  console.log(funcionSeleccionada);
+  let { dni } = useParams();
+  let navigate = useNavigate();
+  //LIMPIAR EL ESTADO DE LA STORE CUANDO EL COMPONENTE ES DEMONTADO, ES DECIR QUE SE VA DEL FORMULARIO.
+  useLayoutEffect(() => {
+    return () => {
+      console.log("se limpiado el estado");
+      dispatch(limpiarEstadoStoreDelegar());
+    };
+  }, []);
 
   const finalizar = () => {
-    dispatch(
-      fetchEnviarNotificacionEnfermera({
-        enfermero: enfermeraSeleccionada.enfermera,
-        funcion: funcionSeleccionada.funcion,
-        pacienteDNI: "9898989898",
-      })
-    );
+    try {
+      dispatch(
+        fetchEnviarNotificacionEnfermera({
+          enfermero: enfermeraSeleccionada.enfermera,
+          funcion: funcionSeleccionada.funcion,
+          pacienteDNI: dni,
+        })
+      );
+      window.alert("se envió la notifiación al enfermero");
+      navigate("/");
+    } catch (e) {
+      window.alert("Error al enviar la notificación");
+      navigate("/");
+    }
   };
 
   const guardarCambiosFuncion = () => {
-    console.log("gurdando cambios...");
+    dispatch(
+      fetchActualizarFuncion({
+        id: funcionSeleccionada.funcion.id,
+        nombre: nombreFuncionCache,
+        descripcion: descripcionFuncionCache,
+      })
+    );
   };
 
   const siguiente = () => {
@@ -53,7 +80,12 @@ const FooterFormDelegar = ({
   };
   return (
     <div className=" d-flex justify-content-between pb-3 ps-3 pe-3">
-      <button id="btn-volver" className="btn btn-primary" onClick={volver}>
+      <button
+        id="btn-volver"
+        className="btn btn-primary"
+        onClick={volver}
+        disabled={alertNombre.isOpen ? true : false}
+      >
         Volver
       </button>
       {seleccionarEnfermera ? (
@@ -70,7 +102,11 @@ const FooterFormDelegar = ({
           id="btn-siguiente"
           className="btn btn-primary"
           onClick={siguiente}
-          disabled={!funcionSeleccionada.seleccionada ? true : false}
+          disabled={
+            !funcionSeleccionada.seleccionada || alertNombre.isOpen
+              ? true
+              : false
+          }
         >
           {editarFuncion ? "guardar y continuar" : "continuar"}
         </button>
@@ -85,6 +121,9 @@ const mapStateToProps = (state) => ({
   seleccionarEnfermera: state.delegarTareas.seleccionarEnfermera,
   funcionSeleccionada: state.delegarTareas.funcionSeleccionada,
   enfermeraSeleccionada: state.delegarTareas.enfermeraSeleccionada,
+  nombreFuncionCache: state.delegarTareas.nombreFuncionCache,
+  descripcionFuncionCache: state.delegarTareas.descripcionFuncionCache,
+  alertNombre: state.delegarTareas.alertaNombre,
 });
 
 export default connect(mapStateToProps)(FooterFormDelegar);

@@ -2,15 +2,39 @@ import React from "react";
 import { connect } from "react-redux";
 import { editarNombreFuncion } from "../actions/delegarTareasActions";
 import { editarDescripcionFuncion } from "../actions/delegarTareasActions";
+import { alertaNombre } from "../actions/delegarTareasActions";
+import { Alert } from "reactstrap";
 
 const EditarFuncionFormDelegar = ({
   funcionSeleccionadaStore,
   nombreFuncionCache,
   descripcionFuncionCache,
+  alertNombre,
   dispatch,
 }) => {
   const onChangeNombre = (e) => {
-    dispatch(editarNombreFuncion(e.target.value));
+    const nombre = e.target.value;
+
+    dispatch(editarNombreFuncion(nombre));
+
+    const formatoNombre = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
+
+    if (!nombre.match(formatoNombre)) {
+      dispatch(
+        alertaNombre({
+          value: "el nombre no es válido, debe corregirlo para continuar",
+          isOpen: true,
+        })
+      );
+    }
+
+    if (nombre.length === 0) {
+      dispatch(alertaNombre({ value: "", isOpen: false }));
+    }
+
+    if (nombre.match(formatoNombre) && alertNombre.isOpen) {
+      dispatch(alertaNombre({ value: "", isOpen: false }));
+    }
   };
 
   const onChangeDescripcion = (e) => {
@@ -43,7 +67,9 @@ const EditarFuncionFormDelegar = ({
             onChange={onChangeDescripcion}
             defaultValue={descripcionFuncionCache}
           />
-
+          <Alert className="mt-3" isOpen={alertNombre.isOpen} color="danger">
+            {alertNombre.value}
+          </Alert>
           {/**Se confirma la edición solo cuando le da al botón siguiente, si le da volver y se editó algún campo no se guarda los cambios */}
         </div>
       </div>
@@ -55,6 +81,7 @@ const mapStateToProps = (state) => ({
   funcionSeleccionadaStore: state.delegarTareas.funcionSeleccionada,
   nombreFuncionCache: state.delegarTareas.nombreFuncionCache,
   descripcionFuncionCache: state.delegarTareas.descripcionFuncionCache,
+  alertNombre: state.delegarTareas.alertaNombre,
 });
 
 export default connect(mapStateToProps)(EditarFuncionFormDelegar);

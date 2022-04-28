@@ -16,6 +16,10 @@ export const initialState = {
   },
   nombreFuncionCache: "",
   descripcionFuncionCache: "",
+  alertaNombre: {
+    value: "",
+    isOpen: false,
+  },
 };
 
 export default function delegarTareasReducer(state = initialState, action) {
@@ -95,6 +99,35 @@ export default function delegarTareasReducer(state = initialState, action) {
         ...state,
         enfermeras: action.payload,
       };
+
+    case actions.ACTUALIZAR_FUNCION:
+      return {
+        ...state,
+        funciones: [
+          ...state.funciones.map((f) => {
+            if (f.id === action.payload.id) {
+              return action.payload;
+            }
+            return f;
+          }),
+        ],
+        funcionSeleccionada: {
+          funcion: action.payload,
+          seleccionada: true,
+        },
+      };
+
+    case actions.ALERTA_NOMBRE:
+      return {
+        ...state,
+        alertaNombre: {
+          value: action.payload.value,
+          isOpen: action.payload.isOpen,
+        },
+      };
+
+    case actions.LIMPIAR_STORE_DELEGAR:
+      return initialState;
 
     default:
       return state;

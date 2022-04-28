@@ -22,7 +22,7 @@ const HomePage = () => {
         <Route path="/verificar-dni" element={<VerificarDniPage />} />
         <Route path="/lista-de-funciones" element={<ListaDeFuncionesPage />} />
         <Route path="/paciente/sintomas/:id" element={<SintomasPage />} />
-        <Route path="/delegar-tareas" element={<DelegarTareasPage />} />
+        <Route path="/delegar-tareas/:dni" element={<DelegarTareasPage />} />
         <Route path="/paciente/diagnostico/:id" element={<DiagnosticoPage />} />
         <Route
           path="/atencion/tratamiento/:idatencion"
