@@ -1,151 +1,79 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { connect } from "react-redux";
-import { OcultarModalNuevaFuncion } from "../actions/funcionActions";
-import { AlertNombre } from "../actions/funcionActions";
-import { FormularioValido } from "../actions/funcionActions";
+import React from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {agregarFuncion} from '../actions/funcionActions'
 
+const ModalNuevaFuncion = () => {
 
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  ModalFooter,
-  Alert,
-} from "reactstrap";
+    const dispatch= useDispatch();
+    const navigate = useNavigate();
 
-const ModalNuevaFuncion = ({
-  isOpen,
-  alertNombre,
-  alertDescripcion,
-  validForm,
-  dispatch,
-}) => {
-  const ocultar_modal = () => {
-    dispatch(
-      FormularioValido({
-        value: "",
-        showAlert: false,
-      })
-    );
-    dispatch(AlertNombre({ value: "", isOpen: false }));
-    dispatch(OcultarModalNuevaFuncion());
-  };
-  console.log(validForm);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const nombre = e.target.name.value;
-    const descripcion = e.target.descripcion.value;
-    const isActive = e.target.estado.checked;
+    const submitHandler = (e) => {
+        e.preventDefault();
+        const nombre = e.target.nombre.value;
+        const descripcion = e.target.descripcion.value;
 
-    if (nombre.length === 0) {
-      dispatch(
-        FormularioValido({
-          value: "Nombre no puede ser vacío",
-          showAlert: true,
-        })
-      );
-    } else if (descripcion.length === 0) {
-      dispatch(
-        FormularioValido({
-          value: "Descripcion no puede ser vacío",
-          showAlert: true,
-        })
-      );
-    } else {
-      dispatch(
-        FormularioValido({
-          value: "",
-          showAlert: false,
-        })
-      );
+        if (!nombre.trim()) {
+            window.alert("el campo nombre es obligatorio");
+            return false;
+        }
+        if (!descripcion.trim()) {
+            window.alert("el campo descripcion es obligatorio");
+            return false;
+        }
+        if (/^([0-9])*$/.test(nombre)) {
+            window.alert("Solo debe haber letras en el campo nombre");
+            return false;
+        }
+        if (/^([0-9])*$/.test(descripcion)) {
+            window.alert("Solo debe haber letras en el campo descripcion");
+            return false;
+        }
+        dispatch(agregarFuncion({nombre,descripcion}));
+        e.target.nombre.value='';
+        e.target.descripcion.value='';
+        window.alert("Funcion agregada exitosamente")
     }
-  };
-
-  const onChangeNombre = (e) => {
-    const nombre = e.target.value;
-    console.log(nombre);
-    const formatoNombre = /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g;
-
-    if (!nombre.match(formatoNombre)) {
-      dispatch(AlertNombre({ value: "el nombre no es válido", isOpen: true }));
+    const mostrarHandler = (e) => {
+        navigate("/ver-funciones")
     }
+    return (
+        <div className="d-flex flex-column align-items-center">
+            <div className="login shadow ">
+                <form
+                    onSubmit={submitHandler}
+                    className="d-flex flex-column align-items-center"
+                >
+                    <input
+                        type="text"
+                        name="nombre"
+                        className="input-lindo mb-4"
+                        placeholder="Ingrese nombre"
+                        id="textNombre"
+                        aria-describedby="nombreHelp"
+                    />
+                    <input
+                        type="text"
+                        name="descripcion"
+                        className="input-lindo mb-4"
+                        placeholder="Ingrese descripcion"
+                        id="textDescripcion"
+                        aria-describedby="descripcionHelp"
+                    />
+                    <button type="submit" className="btn-ingresar" onSubmit={submitHandler}>
+                        Agregar
+                    </button>
 
-    if (nombre.length === 0) {
-      dispatch(AlertNombre({ value: "", isOpen: false }));
-    }
-
-    if (nombre.match(formatoNombre) && alertNombre.isOpen) {
-      dispatch(AlertNombre({ value: "", isOpen: false }));
-    }
-  };
-
-  return (
-    <Modal className="mt-3" isOpen={isOpen}>
-      <ModalHeader>
-        <div>
-          <h3>Ingresar nueva funcion</h3>
+                </form>
+                <div className="d-flex flex-column align-items-center">
+                    <button type="text" className="btn-ingresar  mt-3 " onClick={mostrarHandler}>
+                        Ver Funciones
+                    </button>
+                </div>
+            </div>
         </div>
-      </ModalHeader>
 
-      <form onSubmit={onSubmit}>
-        <ModalBody>
-          <FormGroup>
-            <label>Nombre:</label>
-            <input
-              className="form-control"
-              name="name"
-              id="name"
-              type="text"
-              onChange={onChangeNombre}
-            />
-          </FormGroup>
-          <Alert isOpen={alertNombre.isOpen} color="danger">
-            {alertNombre.value}
-          </Alert>
-          <FormGroup>
-            <label>Descripcion:</label>
-            <input
-              className="form-control"
-              name="descripcion"
-              id="descripcion"
-              type="text"
-            />
-          </FormGroup>
-          <Alert isOpen={alertDescripcion.isOpen} color="danger">
-            {alertDescripcion.value}
-          </Alert>
+    )
+}
 
-          <Alert isOpen={validForm.showAlert} color="danger">
-            {validForm.value}
-          </Alert>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button
-            className="btn btn-danger"
-            onClick={ocultar_modal}
-            id="btn-cancelar"
-          >
-            Cancelar
-          </Button>
-
-          <Button color="primary" id="btn-nueva-funcion">
-            Agregar
-          </Button>
-        </ModalFooter>
-      </form>
-    </Modal>
-  );
-};
-
-const mapStateToProps = (state) => ({
-  isOpen: state.funcion.isOpenModalNuevaFuncion,
-  alertNombre: state.funcion.alertNombre,
-  alertDescripcion: state.funcion.alertDescripcion,
-  validForm: state.funcion.validForm,
-});
-
-export default connect(mapStateToProps)(ModalNuevaFuncion);
+export default ModalNuevaFuncion

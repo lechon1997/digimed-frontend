@@ -10,15 +10,11 @@ import DiagnosticoPage from "./DiagnosticoPage";
 import { useSelector } from "react-redux";
 import * as actions from "../actions/verifyActions";
 import TratamientoForm from "../components/TratamientoForm";
-import FormularioNuevaFuncionPage from "./FormularioNuevaFuncionPage";
+import VerFuncionesPage from "./VerFuncionesPage";
 import ListaDeFunciones from "../components/ListaDeFunciones";
 
 const HomePage = () => {
-  const url = "https://forms.gle/sZPy5oci54wUviU79";
-  const urlChanger = (e) => {
-    e.preventDefault();
-    window.location.assign(url)
-  }
+
 
   return (
     <div className="menu-home w-100">
@@ -29,14 +25,12 @@ const HomePage = () => {
         <Route path="/lista-de-personal" element={<ListaDePersonalPage />} />
         <Route path="/verificar-dni" element={<VerificarDniPage />} />
         <Route path="/lista-de-funciones" element={<ListaDeFuncionesPage />} />
-        <Route path="/ingresar-funcion" element={<FormularioNuevaFuncionPage />} />
+        <Route path="/ver-funciones" element={<VerFuncionesPage />} />
         <Route path="/paciente/sintomas/:id" element={<SintomasPage />} />
         <Route path="/paciente/diagnostico/:id" element={<DiagnosticoPage />} />
         <Route path="/atencion/tratamiento/:idatencion/:idPaciente" element={<TratamientoForm />} />
       </Routes>
-      <button className="btn-redireccion"
-        onClick={urlChanger}
-      >Encuesta</button>
+     
     </div>
   );
 };

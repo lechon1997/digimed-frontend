@@ -1,5 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
     Table,
     Button,
@@ -12,10 +13,19 @@ import {
     Alert,
 } from "reactstrap";
 
-const ListaDeFunciones = ({ funciones, dispatch }) => {
+const ListaDeFunciones = () => {
+    const funciones = useSelector(state => state.funciones.funciones);
+    const navigate = useNavigate();
+    const goBackHandler = (e) => {
+        e.preventDefault();
+        navigate("/lista-de-funciones")
+
+    }
+
+
     return (
         <div>
-            <Table className="container mt-3 d-flex flex-column align-items-center">
+            <Table className="container mt-3 ">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -23,7 +33,7 @@ const ListaDeFunciones = ({ funciones, dispatch }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {funciones.funciones.map((f) => (
+                    {funciones.map((f) => (
                         <tr key={f.id}>
                             <td>{f.nombre}</td>
                             <td>{f.descripcion}</td>
@@ -31,12 +41,14 @@ const ListaDeFunciones = ({ funciones, dispatch }) => {
                     ))}
                 </tbody>
             </Table>
+
+            <button type="submit" className="btn-ingresar3 mb-3" onClick={goBackHandler}>
+                Volver
+            </button>
         </div>
     );
 };
 
-const mapStateToProps = (state) => ({
-    funciones: state.funciones,
-});
 
-export default connect(mapStateToProps)(ListaDeFunciones);
+
+export default ListaDeFunciones;
