@@ -33,14 +33,12 @@ const Menu = () => {
           <ImagenCardOption img={img3} />
         </CardOption>
       </Link>
-      {/**
       <Link to="/delegar-tareas">
         <CardOption>
           <TituloCardOption titulo={"Delegar tareas"} />
           <ImagenCardOption img={img4} />
         </CardOption>
       </Link>
-       */}
     </div>
   );
 };

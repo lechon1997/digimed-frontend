@@ -1,17 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CheckBoxPersonal from "./CheckBoxPersonal";
-import {
-  Table,
-  Button,
-  Container,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  ModalFooter,
-  Alert,
-} from "reactstrap";
+import { Table } from "reactstrap";
 
 const ListaDePersonal = ({ personal, dispatch }) => {
   return (

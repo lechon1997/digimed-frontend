@@ -32,6 +32,7 @@ export function fetchNuevoEnfermero(data) {
         body: JSON.stringify(data),
       });
       const res = await response.json();
+      console.log(res);
       dispatch({ type: NUEVO_ENFERMERO, payload: res });
     } catch (error) {
       console.log("error: ", error);
