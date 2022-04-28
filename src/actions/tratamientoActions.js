@@ -30,9 +30,6 @@ export function postTratamiento(tratamiento, atencionId) {
         if(tratamiento.fecha !== null){
             tratamientoEndpoint = "agregarTratamientoCita"
         }
-        console.log(tratamiento);
-        console.log(atencionId);
-        console.log(tratamientoEndpoint);
         dispatch(loading());
         try {
             const response = await fetch(
@@ -47,7 +44,6 @@ export function postTratamiento(tratamiento, atencionId) {
                 }
             );
             const savedAM = await response.text();
-            console.log(savedAM)
             dispatch(success({redirect: `/`}));
         } catch (error) {
             console.log(error)
