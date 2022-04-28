@@ -33,7 +33,7 @@ const TratamientoForm = () => {
             showConfirmButton: false,
             timer: 1500
           })
-        dispatch(postTratamiento(data, pathParams.idatencion));
+        dispatch(postTratamiento(data, pathParams.idatencion, pathParams.idPaciente));
     }
 
     useEffect(() => {

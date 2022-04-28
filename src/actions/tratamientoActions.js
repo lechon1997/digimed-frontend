@@ -23,8 +23,10 @@ export function limpiarRedirectTratamiento() {
     };
 }
 
-export function postTratamiento(tratamiento, atencionId) {
+export function postTratamiento(tratamiento, atencionId, idPaciente) {
     return async (dispatch) => {
+        let redirectUrl = "/";
+        if(tratamiento.estado === "INGRESADO_HOSPITAL") { redirectUrl = `/delegar-tareas/${idPaciente}` }
         dispatch(loading());
         try {
             const response = await fetch(
@@ -40,7 +42,7 @@ export function postTratamiento(tratamiento, atencionId) {
             );
             const savedTratamiento = await response.text();
             console.log(savedTratamiento)
-            dispatch(success({redirect: `/`}));
+            dispatch(success({redirect: redirectUrl}));
         } catch (error) {
             console.log(error)
             dispatch(failure());

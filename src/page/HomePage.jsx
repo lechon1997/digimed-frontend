@@ -12,6 +12,7 @@ import * as actions from "../actions/verifyActions";
 import TratamientoForm from "../components/TratamientoForm";
 import FormularioNuevaFuncionPage from "./FormularioNuevaFuncionPage";
 import ListaDeFunciones from "../components/ListaDeFunciones";
+import DelegarTareasPage from "./DelegarTareasPage";
 
 const HomePage = () => {
   const url = "https://forms.gle/sZPy5oci54wUviU79";
