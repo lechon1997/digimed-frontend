@@ -62,7 +62,7 @@ const SintomasPage = ({ dispatch }) => {
             type="submit"
             id="btn-ingresar-sintomas"
           >
-            confirmar
+            Confirmar
           </button>
         </div>
       </form>

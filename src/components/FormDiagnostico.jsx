@@ -59,7 +59,7 @@ const FormDiagnostico = () => {
                     Enviar
                 </button>
                 <button type="submit" className=" mt-1 btn-ingresar" onClick={cancelHandler}>
-                    cancelar
+                    Cancelar
                 </button>
             </form>
 
