@@ -1,4 +1,3 @@
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -61,10 +60,8 @@ h6 {
   margin: 0px;
 }
 
-.textAreaBonita{
+.textAreaBonita {
   padding: 5px;
-
-
 }
 .imagen-xd {
   display: flex;
@@ -131,7 +128,6 @@ h6 {
 
 .btn-ingresar2 {
   border: none;
-  width: 25%;
   height: 40px;
   font-weight: 600;
   font-size: 18px;
@@ -229,7 +225,8 @@ h6 {
 .btn-nuevo-personal {
   border: none;
   width: 150px;
-  height: 40px;
+  min-height: 40px;
+  height: auto;
   margin-bottom: 25px;
   background-color: #26a69a;
   color: white;
@@ -292,7 +289,34 @@ h6 {
   width: 80%;
 }
 
+.width-contenedor-sintomas {
+  width: 40%;
+}
+
+.contenedor-btn-ingresar-sintomas {
+  justify-content: end;
+}
+
 @media only screen and (max-width: 720px) {
+  .contenedor-btn-ingresar-sintomas {
+    justify-content: center;
+  }
+
+  .btn-ingresar2 {
+    border: none;
+    width: 50%;
+    height: 40px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #f4f4f4;
+    margin-right: 10px;
+    background-color: #ed2553;
+  }
+
+  .width-contenedor-sintomas {
+    width: 100%;
+  }
+
   .fondo-logo {
     width: 100px;
     background-color: white;

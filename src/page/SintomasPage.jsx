@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { agregarSintomas } from "../actions/pacienteActions";
-import { limpiar } from "../actions/verifyActions"
-import {limpiarRedirectPaciente} from "../actions/pacienteActions.js"
+import { limpiar } from "../actions/verifyActions";
+import { limpiarRedirectPaciente } from "../actions/pacienteActions.js";
 const SintomasPage = ({ dispatch }) => {
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(limpiar())
-    dispatch(limpiarRedirectPaciente())
-  }, [])
+    dispatch(limpiar());
+    dispatch(limpiarRedirectPaciente());
+  }, []);
 
   let params = useParams();
   const fechaHoy = new Date();
@@ -37,13 +37,12 @@ const SintomasPage = ({ dispatch }) => {
       );
       window.alert("cita ingresada correctamente");
       e.target.sintomas.value = "";
-      navigate('/paciente/diagnostico/'+params.id)
+      navigate("/paciente/diagnostico/" + params.id);
     }
   };
 
-
   return (
-    <div className="formulario-sintomas mt-3 w-50">
+    <div className="formulario-sintomas p-3 width-contenedor-sintomas">
       <div className="d-flex justify-content-between">
         <label>Ingresar sintomas del paciente</label>
         <label className="mb-4">Fecha: {fechaLinda}</label>
@@ -57,7 +56,7 @@ const SintomasPage = ({ dispatch }) => {
             rows="3"
           ></textarea>
         </div>
-        <div className="d-flex justify-content-end w-100">
+        <div className="d-flex contenedor-btn-ingresar-sintomas w-100">
           <button
             className="btn-ingresar2 "
             type="submit"
